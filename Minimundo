@@ -1,0 +1,5 @@
+Em um parque de diversões moderno cada visitante paga de acordo com os brinquedos que visita,ao entrar no parque o cliente recebe um cartão para registrar a hora da entrada em todos os brinquedos, este cartão é valido para o resto do dia. 
+O cartao deve manter um registro de todos os brinquedos visitados pelo cliente para que no final do dia seja realizada a cobrança.
+Cada visitante tem um nome, cpf, endereco e um ou mais telefones para contato.
+Cada brinquedo tem um código para identifica-lo, um nome, e um ou mais funcionários que nele trabalham.
+Cada funcionario possui um CPF, nome, endereco,telefone para contato e cada um pode trabalhar em um ou mais brinquedos.
