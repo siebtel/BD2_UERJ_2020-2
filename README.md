@@ -38,16 +38,16 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
 ### Descrição
 
 * **Chave primária**<br/>
-* <u>Chave estrangeira</u>
+* _Chave estrangeira_
 <br><br><br>
 * Cliente (**CPF**, Nome, Endereço)
-* Telefones_cliente (**Telefone**, <u>Cliente_CPF</u>)
-* Cartao_Cobrança (**Data**, <u>**Cliente_CPF**</u>)
+* Telefones_cliente (**Telefone**, _Cliente_CPF_)
+* Cartao_Cobrança (**Data**, _**Cliente_CPF**_)
 * Brinquedo (**Cod_brinquedo**, Nome, Preço)
-* Cartao_cobranca_has_brinquedo (**Hora**, <u>**Cartao_Cobrança_Data**</u>, <u>**Cartao_Cobranca_Cliente**</u>, <u>**Brinquedo_Cod_briqneudo**</u>)
+* Cartao_cobranca_has_brinquedo (**Hora**, _**Cartao_Cobrança_Data**_, _**Cartao_Cobranca_Cliente**_, _**Brinquedo_Cod_briqneudo**_)
 * Funcionario (**CPF**, Nome, Endereço)
-* Telefones_funcionario (**Telefone**, <u>Funcionario_CPF</u>)
-* Funcionario_has_brinquedo (<u>**Funcionario_CPF**</u>, <u>**Brinquedo_Cod_brinquedo**</u>)
+* Telefones_funcionario (**Telefone**, _Funcionario_CPF_)
+* Funcionario_has_brinquedo (_**Funcionario_CPF**_, _**Brinquedo_Cod_brinquedo**_)
 
 <img src="ModeloRelacional.png"></img>
 
