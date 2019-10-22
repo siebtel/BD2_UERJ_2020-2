@@ -17,36 +17,40 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
 
 ## Modelo conceitual
 
+### Diagrama entidade-relacionamento
+
 <img src="ModeloConceitual.png"></img>
 
 ### Restrições de Domínio
 
 <ul>
-    <li>Visitante:<ul><li>CPF: Conjunto de números</li><li>Nome: String de no máximo 40 caracteres.</li><li>Endereço: String de no máximo 80 caracteres.</li><li>Telefone: Números inteiros mínimo de 8 e máximo de 9.</li>
+    <li>Visitante:<ul><li>CPF: Número inteiro de onze dígitos.</li><li>Nome: String de no máximo 40 caracteres.</li><li>Endereço: String de no máximo 80 caracteres.</li><li>Telefone: Numero inteiro formado por oito ou nove dígitos.</li>
     </ul>
     </li>
-    <li>Cartão:<ul><li>Data: Data no formato aaaa-mm-dd de acordo com o tipo DATE da linguagem mySQl.</li></ul></li>
-    <li>Brinquedo:<ul><li>Cod_brinquedo: Identificador único inteiro de 5 dígitos.</li><li>Nome:String de no máximo 40 caracteres.</li><li>Preço: Número real positivo com duas casas decimais de precisão.</li></ul></li>
-    <li>Registra (Cartão-Brinquedo):<ul><li> Hora: registro de hora no formato hh-mm-ss de acordo com o tipo TIME da linguagem mySQl.</li></ul></li>
-    <li>Funcionário:<ul><li>CPF: Conjunto de números</li><li>Nome: String de no máximo 40 caracteres.</li><li>Endereço: String de no máximo 80 caracteres.</li><li>Telefone: Números inteiros mínimo de 8 e máximo de 9.</li>
+    <li>Cartão:<ul><li>Data: Data no formato aaaa-mm-dd de acordo com o tipo DATE da linguagem mySQL.</li></ul></li>
+    <li>Brinquedo:<ul><li>Cod_brinquedo: Numero inteiro de cinco dígitos.</li><li>Nome: String de no máximo 40 caracteres.</li><li>Preço: Número real positivo com duas casas decimais de precisão.</li></ul></li>
+    <li>Registra (Cartão-Brinquedo):<ul><li> Hora: registro de hora no formato hh-mm-ss de acordo com o tipo TIME da linguagem mySQL.</li></ul></li>
+    <li>Funcionário:<ul><li>CPF: Número inteiro de onze dígitos.</li><li>Nome: String de no máximo 40 caracteres.</li><li>Endereço: String de no máximo 80 caracteres.</li><li>Telefone: Numero inteiro formado por oito ou nove dígitos.</li>
 </ul>
 
 ## Modelo Relacional
 
+### Descrição
+
+* **Chave primária**<br/>
+* <u>Chave estrangeira</u>
+<br><br><br>
+* Cliente (**CPF**, Nome, Endereço)
+* Telefones_cliente (**Telefone**, <u>Cliente_CPF</u>)
+* Cartao_Cobrança (**Data**, <u>**Cliente_CPF**</u>)
+* Brinquedo (**Cod_brinquedo**, Nome, Preço)
+* Cartao_cobranca_has_brinquedo (**Hora**, <u>**Cartao_Cobrança_Data**</u>, <u>**Cartao_Cobranca_Cliente**</u>, <u>**Brinquedo_Cod_briqneudo**</u>)
+* Funcionario (**CPF**, Nome, Endereço)
+* Telefones_funcionario (**Telefone**, <u>Funcionario_CPF</u>)
+* Funcionario_has_brinquedo (<u>**Funcionario_CPF**</u>, <u>**Brinquedo_Cod_brinquedo**</u>)
+
 <img src="ModeloRelacional.png"></img>
 
-ajlsdçasasd
-
 ## Restrições de integridade estrutural
-### Chave
-##### Legenda:<br/> 
-*Atributos com o indentificador * são multivalorados.*
-*Atributos com o indentificador ° são chaves estrangeiras.*
-*Atributos com o indentificador _ são chaves Primárias.*
 
-- Visitante(<u>CPF_Visitante</u>, Nome, Endereço,Telefone*).
-
-- Cartão_cobrança(<u>Data</u>,CPF_Visitante°).
-
-- 
 
