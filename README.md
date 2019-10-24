@@ -31,7 +31,8 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
     <li>Brinquedo:<ul><li>Cod_brinquedo: Numero inteiro de cinco dígitos.</li><li>Nome: String de no máximo 40 caracteres.</li><li>Preço: Número real positivo com duas casas decimais de precisão.</li></ul></li>
     <li>Registra (Cartão-Brinquedo):<ul><li> Hora: registro de hora no formato hh-mm-ss de acordo com o tipo TIME da linguagem mySQL.</li></ul></li>
     <li>Funcionário:<ul><li>CPF: Número inteiro de onze dígitos.</li><li>Nome: String de no máximo 40 caracteres.</li><li>Endereço: String de no máximo 80 caracteres.</li><li>Telefone: Numero inteiro formado por oito ou nove dígitos.</li>
-</ul>
+</ul></ul>
+
 
 ## Modelo Relacional
 
@@ -48,9 +49,36 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
 * Funcionario (**CPF**, Nome, Endereço)
 * Telefones_funcionario (**Telefone**, _Funcionario_CPF_)
 * Funcionario_has_brinquedo (_**Funcionario_CPF**_, _**Brinquedo_Cod_brinquedo**_)
-
+  
+<p>
+    Tendo em vista que as relações "Cartão de Cobrança" e "Brinquedo", e "Funcionário" e "Brinquedo" são relações n para n, a solução mais adequada foi criar uma tabela própria para cada uma delas.
+</p>
+<p>
+    Sendo a Data do "Cartão de Cobrança", o CPF do "Visitante" e o Código do "Brinquedo" são chaves estrangeiras da relação "Cartão de Cobrança-Brinquedo". 
+</p>
+<p>
+    O CPF do "Funcionário" e o Código do "Brinquedo" são chaves estrangeiras da relação "Funcionário-Brinquedo".
+</p>
 <img src="ModeloRelacional.png"></img>
 
-## Restrições de integridade estrutural
+## Restrições de Integridade Estrutural
+
+### Restrições Referenciais
+<ul>
+    <li>
+        fsd
+    </li>
+    
+</ul>
+
+## Restrições de Integridade Semântica
+<ol>
+    <li>
+        Para o caso do visitante participar de dois brinquedos, ao mesmo tempo, o sistema não o impedirá.
+    </li>
+    <li>
+        O visitante e o funcionário podem ser a mesma pessoa. 
+    </li>
+</ol>
 
 
