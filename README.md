@@ -13,7 +13,7 @@ O tema abordado será o gerenciamento do cartão de visita de um visitante em um
 
 ## Minimundo
 
-O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Seus visitantes recebem na entrada um cartão digital que deve ser apresentado na entrada de cada brinquedo. Cada brinquedo possui um nome e código de identificação. Sendo a gerência do parque muito gananciosa, cada cartão de visitante deve registrar a cobrança de entrada nos brinquedos cada vez que for utilizado, ou seja, o visitante paga cada vez que for usar um brinquedo. Os funcionários deste parque também são muito ocupados, tendo muitas vezes que trabalhar em mais de um brinquedo, sendo que cada brinquedo pode precisar de um ou mais funcionários. Para evitar fraudes, tanto os clientes quanto os funcionários devem ser registrados de acordo com o seu nome completo, CPF, endereço e telefone(s) para contato. Para disfarçar sua ganância o parque permite que cada cartão sejá válido por um dia inteiro. Ao final do dia o visitante deve pagar o valor acumulado de todos os brinquedos que visitou.
+O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Seus visitantes recebem na entrada um cartão digital que deve ser apresentado na entrada de cada brinquedo. Cada brinquedo possui um nome e código de identificação. Sendo a gerência do parque muito gananciosa, cada cartão de visitante deve registrar a cobrança de entrada nos brinquedos cada vez que for utilizado, ou seja, o visitante paga cada vez que for usar um brinquedo. Os funcionários deste parque também são muito ocupados, tendo muitas vezes que trabalhar em mais de um brinquedo, sendo que cada brinquedo pode precisar de um ou mais funcionários. Para estimular uma concorrência saudável entre seus funcionários, a gerência do parque paga um adicional de dois por cento do dinheiro arrecadado em cada brinquedo para cada funcionario responsável por ele. A fim de evitar fraudes, tanto os clientes quanto os funcionários devem ser registrados de acordo com o seu nome completo, CPF, endereço e telefone(s) para contato. Para disfarçar sua ganância o parque permite que cada cartão sejá válido por um dia inteiro. Ao final do dia o visitante deve pagar o valor acumulado de todos os brinquedos que visitou.
 
 ## Modelo conceitual
 
@@ -51,33 +51,23 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
 * Funcionario_has_brinquedo (_**Funcionario_CPF**_, _**Brinquedo_Cod_brinquedo**_)
   
 <p>
-    Tendo em vista que as relações "Cartão de Cobrança" e "Brinquedo", e "Funcionário" e "Brinquedo" são relações n para n, a solução mais adequada foi criar uma tabela própria para cada uma delas.
+    Sabendo-se que cada Cliente possui nenhum ou vários cartões, mas que cada cartão está vinculado a obrigatoriamente um e apenas um cliente, foi adicionada uma coluna extra na tabela cartão para referenciar o cliente ao qual ele está asssociado
 </p>
 <p>
-    Sendo a Data do "Cartão de Cobrança", o CPF do "Visitante" e o Código do "Brinquedo" são chaves estrangeiras da relação "Cartão de Cobrança-Brinquedo". 
+    Como cada cartão de cobrança pode registrar nenhum ou vários brinquedos, e cada brinquedo pode estar registrado em nenhum ou vários cartões, criou-se uma nova tabela para relação
 </p>
 <p>
-    O CPF do "Funcionário" e o Código do "Brinquedo" são chaves estrangeiras da relação "Funcionário-Brinquedo".
+    Cada funcionário pode trabalhar em nenhum ou mais de um brinquedo, e cada brinquedo possui entre um e varios funcionários. De maneira análoga a relação brinquedo-cartão foi criada uma nova tabela
 </p>
 <img src="ModeloRelacional.png"></img>
 
-## Restrições de Integridade Estrutural
-
-### Restrições Referenciais
-<ul>
-    <li>
-        fsd
-    </li>
-    
-</ul>
-
-## Restrições de Integridade Semântica
+## Restrições Semânticas
 <ol>
     <li>
-        Para o caso do visitante participar de dois brinquedos, ao mesmo tempo, o sistema não o impedirá.
+        Cada funcionário não pode receber menos do que o salário minímo, estipulado em $sc 500,00 
     </li>
     <li>
-        O visitante e o funcionário podem ser a mesma pessoa. 
+        O visitante paga por cada brinquedo visitado, mas não pode pagar menos de $sc 100,00
     </li>
 </ol>
 
