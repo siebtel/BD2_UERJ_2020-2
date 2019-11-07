@@ -78,6 +78,10 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
 
 ### Cobrança do visitante Paulo Coelho no dia 01 de Junho de 2019
 
-<img src="equacoesAlgebraRelacional\Eq1.jpg"></img>
+<img style="border-width: 5px; border-style: solid; border-color: black; margin: 2px" src="equacoesAlgebraRelacional\Eq1.jpg"></img>
+
+### Calculo do salário do funcionário Dennis Ribeiro
+
+
 
 
