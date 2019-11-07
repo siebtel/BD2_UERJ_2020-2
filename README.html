@@ -56,7 +56,7 @@ O tema abordado será o gerenciamento do cartão de visita de um visitante em um
 <li>Telefones_cliente (<strong>Telefone</strong>, <strong><em>Cliente_CPF</em></strong>)</li>
 <li>Cartao_Cobrança (<strong>Data</strong>, <em><strong>Cliente_CPF</strong></em>)</li>
 <li>Brinquedo (<strong>Cod_brinquedo</strong>, Nome, Preço)</li>
-<li>Cartao_cobranca (<strong>Hora</strong>, <em><strong>Cartao_Cobrança_Data</strong></em>, <em><strong>Cartao_Cobranca_Cliente_CPF</strong></em>, <em><strong>Brinquedo_Cod_brinquedo</strong></em>)</li>
+<li>Cartao_cobranca_brinquedo (<strong>Hora</strong>, <em><strong>Cartao_Cobrança_Data</strong></em>, <em><strong>Cartao_Cobranca_Cliente_CPF</strong></em>, <em><strong>Brinquedo_Cod_brinquedo</strong></em>)</li>
 <li>Funcionario (<strong>CPF</strong>, Nome, Endereço)</li>
 <li>Telefones_funcionario (<strong>Telefone</strong>, <strong><em>Funcionario_CPF</em></strong>)</li>
 <li>Funcionario_brinquedo (<em><strong>Funcionario_CPF</strong></em>, <em><strong>Brinquedo_Cod_brinquedo</strong></em>)</li>
@@ -88,6 +88,72 @@ O tema abordado será o gerenciamento do cartão de visita de um visitante em um
 <p><img style ="border: 2px solid black"  src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\equacoesAlgebraRelacional\Eq2.jpg"></img></p>
 <h3 id="clientes-que-visitaram-todos-os-brinquedos-em-qualquer-intervalo-de-tempo">Clientes que visitaram todos os brinquedos em qualquer intervalo de tempo</h3>
 <p><img style ="border: 2px solid black"  src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\equacoesAlgebraRelacional\Eq3.jpg"></img></p>
+<h3 id="funcion%c3%a1rios-que-visitaram-os-brinquedos-em-que-trabalham-como-clientes">Funcionários que visitaram os brinquedos em que trabalham como clientes</h3>
+<p><img style ="border: 2px solid black"  src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\equacoesAlgebraRelacional\Eq4.jpg"></img></p>
+<h2 id="consultas-em-sql">Consultas em SQL</h2>
+<h2 id="script-ddl">Script DDL</h2>
+<pre><code class="language-sql"><div><span class="hljs-keyword">create</span> <span class="hljs-keyword">database</span> bd1;
+
+<span class="hljs-keyword">use</span> bd1;
+
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Cliente (
+  CPF <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  Nome <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">45</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  Endereco <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">100</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
+);
+
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Brinquedos (
+  Cod_brinquedo <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  Preco <span class="hljs-built_in">INT</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  Nome <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">45</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
+);
+
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Funcionario (
+  CPF <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  Nome <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">45</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  Endereco <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">45</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
+);
+
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Funcionario_Brinquedos (
+  Funcionario_CPF <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  Brinquedos_Cod_brinquedo <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  <span class="hljs-keyword">CONSTRAINT</span> pk_Funcionario_Brinquedos PRIMARY <span class="hljs-keyword">KEY</span> (Funcionario_CPF, Brinquedos_Cod_brinquedo),
+  <span class="hljs-keyword">CONSTRAINT</span> fk_Funcionario_CPF <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Funcionario_CPF) <span class="hljs-keyword">REFERENCES</span> Funcionario(CPF),
+  <span class="hljs-keyword">CONSTRAINT</span> fk_Brinquedos_Cod_brinquedo_funcionarios  <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Brinquedos_Cod_brinquedo) <span class="hljs-keyword">REFERENCES</span> Brinquedos(Cod_brinquedo)
+);
+
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Cartao_cobranca (
+  <span class="hljs-keyword">Data</span> <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  Cliente_CPF <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  <span class="hljs-keyword">CONSTRAINT</span> pk_Cartao_cobranca PRIMARY <span class="hljs-keyword">KEY</span> (<span class="hljs-keyword">Data</span>, Cliente_CPF),
+  <span class="hljs-keyword">CONSTRAINT</span> fk_Cliente_CPF <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Cliente_CPF) <span class="hljs-keyword">REFERENCES</span> Cliente(CPF)
+);
+
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Cartao_cobranca_brinquedos (
+  Cartao_cobranca_Data <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  Cartao_cobranca_Cliente_CPF <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  Brinquedos_Cod_brinquedo <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  Hora <span class="hljs-built_in">TIME</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  <span class="hljs-keyword">CONSTRAINT</span> pk_Cartao_cobranca_brinquedos PRIMARY <span class="hljs-keyword">KEY</span> (Cartao_cobranca_Data, Cartao_cobranca_Cliente_CPF, Brinquedos_Cod_brinquedo, Hora),
+  <span class="hljs-keyword">CONSTRAINT</span> fk_Cartao_cobranca_Data <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Cartao_cobranca_Data)  <span class="hljs-keyword">REFERENCES</span> Cartao_cobranca(<span class="hljs-keyword">Data</span>),
+  <span class="hljs-keyword">CONSTRAINT</span> fk_Cartao_cobranca_Cliente_CPF <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Cartao_cobranca_Cliente_CPF) <span class="hljs-keyword">REFERENCES</span> Cartao_cobranca(Cliente_CPF),
+  <span class="hljs-keyword">CONSTRAINT</span> fk_Brinquedos_Cod_brinquedo_cartao_cobranca <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Brinquedos_Cod_brinquedo) <span class="hljs-keyword">REFERENCES</span> Brinquedos(Cod_brinquedo)
+);
+
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Telefones_funcionario (
+  Telefone <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  Funcionario_CPF <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  <span class="hljs-keyword">CONSTRAINT</span> pk_Telefones_funcionario PRIMARY <span class="hljs-keyword">KEY</span> (Telefone, Funcionario_CPF),
+  <span class="hljs-keyword">CONSTRAINT</span> fk_Funcionario_CPF_tel <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Funcionario_CPF) <span class="hljs-keyword">REFERENCES</span> Funcionario(CPF)
+);
+
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Telefones_cliente (
+  Telefone <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  Cliente_CPF <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  <span class="hljs-keyword">CONSTRAINT</span> pk_Telefones_cliente PRIMARY <span class="hljs-keyword">KEY</span> (Telefone, Cliente_CPF),
+  <span class="hljs-keyword">CONSTRAINT</span> fk_cliente_cpf_tel <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Cliente_CPF) <span class="hljs-keyword">REFERENCES</span> Cliente(CPF)
+);
+</div></code></pre>
 
     </body>
     </html>
