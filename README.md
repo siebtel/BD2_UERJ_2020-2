@@ -14,7 +14,7 @@ O tema abordado será o gerenciamento do cartão de visita de um visitante em um
 ## Minimundo
 
 O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Seus visitantes recebem na entrada um cartão digital que deve ser apresentado na entrada de cada brinquedo. Cada brinquedo possui um nome e código de identificação. Sendo a gerência do parque muito gananciosa, cada cartão de visitante deve registrar a cobrança de entrada nos brinquedos cada vez que for utilizado, ou seja, o visitante paga cada vez que for usar um brinquedo. Os funcionários deste parque também são muito ocupados, tendo muitas vezes que trabalhar em mais de um brinquedo, sendo que cada brinquedo pode precisar de um ou mais funcionários. Para estimular uma concorrência saudável entre seus funcionários, a gerência do parque paga um adicional de dois por cento do dinheiro arrecadado em cada brinquedo para cada funcionario responsável por ele. A fim de evitar fraudes, tanto os clientes quanto os funcionários devem ser registrados de acordo com o seu nome completo, CPF, endereço e telefone(s) para contato. Para disfarçar sua ganância o parque permite que cada cartão sejá válido por um dia inteiro. Ao final do dia o visitante deve pagar o valor acumulado de todos os brinquedos que visitou.
-
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br>
 ## Modelo conceitual
 
 ### Diagrama entidade-relacionamento
@@ -93,9 +93,11 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
 ### Listar valor a ser cobrado de cada cliente por cada dia de visita
 
 ```sql
-SELECT A.Cartao_cobranca_data as Data, C.nome as Nome, sum(B.preco) as Valor 
+SELECT A.Cartao_cobranca_data as Data, 
+C.nome as Nome, sum(B.preco) as Valor 
 FROM Cartao_cobranca_brinquedos A, Brinquedos B, Cliente C 
-WHERE A.Brinquedos_Cod_brinquedo = B.cod_brinquedo AND A.Cartao_cobranca_Cliente_CPF = C.CPF 
+WHERE A.Brinquedos_Cod_brinquedo = B.cod_brinquedo 
+AND A.Cartao_cobranca_Cliente_CPF = C.CPF 
 GROUP BY A.Cartao_cobranca_data,A.Cartao_cobranca_Cliente_CPF 
 ```
 
@@ -103,12 +105,47 @@ GROUP BY A.Cartao_cobranca_data,A.Cartao_cobranca_Cliente_CPF
 
 ```sql
 select C.nome, 500+sum(0.02*A.visitas*D.preco) as Salario
-from (select Brinquedos_Cod_brinquedo as cod_brinquedo, count(Cartao_cobranca_cliente_cpf) as visitas from cartao_cobranca_brinquedos where Cartao_cobranca_data <"2019-07-01" AND Cartao_cobranca_data > "2019-05-31" group by Brinquedos_Cod_brinquedo) A, funcionario_brinquedos B, Funcionario C, Brinquedos D
-where C.cpf = B.Funcionario_CPF AND B.Brinquedos_cod_brinquedo = A.cod_brinquedo AND B.Brinquedos_cod_brinquedo = D.cod_brinquedo
+from (select Brinquedos_Cod_brinquedo as cod_brinquedo, 
+count(Cartao_cobranca_cliente_cpf) as visitas 
+from cartao_cobranca_brinquedos 
+where Cartao_cobranca_data <"2019-07-01" 
+AND Cartao_cobranca_data > "2019-05-31" 
+group by Brinquedos_Cod_brinquedo) A, funcionario_brinquedos B, 
+Funcionario C, Brinquedos D
+where C.cpf = B.Funcionario_CPF 
+AND B.Brinquedos_cod_brinquedo = A.cod_brinquedo 
+AND B.Brinquedos_cod_brinquedo = D.cod_brinquedo
 group by nome 
 order by nome
 ```
 
+### Funcionários que também visitaram o parque como clientes
+
+```sql
+SELECT nome FROM Cliente INTERSECT SELECT nome FROM Funcionario 
+ORDER BY nome
+```
+### Clientes e funcionarios que possuem mais de um telefone para contato ou possuem telefone igual á outro cliente
+
+```sql
+(select C.Cliente_CPF 
+from 
+(select * from telefones_cliente 
+UNION 
+select * from telefones_Funcionario) C, 
+(select * from telefones_cliente 
+UNION 
+select * from telefones_Funcionario) D 
+where C.Telefone = D.Telefone 
+AND C.Cliente_cpf <> D.cliente_cpf) 
+UNION
+(select B.cliente_CPF 
+from (select A.Cliente_CPF, count(A.Telefone) as cnt
+from (select * from telefones_cliente UNION select * 
+from telefones_Funcionario) A group by Cliente_CPF) B
+where B.cnt > 1)
+```
+</br></br></br>
 ## Script DDL
 
 ```sql
@@ -137,16 +174,23 @@ CREATE TABLE Funcionario (
 CREATE TABLE Funcionario_Brinquedos (
   Funcionario_CPF BIGINT NOT NULL,
   Brinquedos_Cod_brinquedo INT NOT NULL,
-  CONSTRAINT pk_Funcionario_Brinquedos PRIMARY KEY (Funcionario_CPF, Brinquedos_Cod_brinquedo),
-  CONSTRAINT fk_Funcionario_CPF FOREIGN KEY (Funcionario_CPF) REFERENCES Funcionario(CPF),
-  CONSTRAINT fk_Brinquedos_Cod_brinquedo_funcionarios  FOREIGN KEY (Brinquedos_Cod_brinquedo) REFERENCES Brinquedos(Cod_brinquedo)
+  CONSTRAINT pk_Funcionario_Brinquedos PRIMARY KEY 
+  (Funcionario_CPF, Brinquedos_Cod_brinquedo),
+  CONSTRAINT fk_Funcionario_CPF 
+  FOREIGN KEY (Funcionario_CPF) 
+  REFERENCES Funcionario(CPF),
+  CONSTRAINT fk_Brinquedos_Cod_brinquedo_funcionarios 
+  FOREIGN KEY (Brinquedos_Cod_brinquedo) 
+  REFERENCES Brinquedos(Cod_brinquedo)
 );
 
 CREATE TABLE Cartao_cobranca (
   Data DATE NOT NULL,
   Cliente_CPF BIGINT NOT NULL,
   CONSTRAINT pk_Cartao_cobranca PRIMARY KEY (Data, Cliente_CPF),
-  CONSTRAINT fk_Cliente_CPF FOREIGN KEY (Cliente_CPF) REFERENCES Cliente(CPF)
+  CONSTRAINT fk_Cliente_CPF 
+  FOREIGN KEY (Cliente_CPF) 
+  REFERENCES Cliente(CPF)
 );
 
 CREATE TABLE Cartao_cobranca_brinquedos (
@@ -154,24 +198,37 @@ CREATE TABLE Cartao_cobranca_brinquedos (
   Cartao_cobranca_Cliente_CPF BIGINT NOT NULL,
   Brinquedos_Cod_brinquedo INT NOT NULL,
   Hora TIME NOT NULL,
-  CONSTRAINT pk_Cartao_cobranca_brinquedos PRIMARY KEY (Cartao_cobranca_Data, Cartao_cobranca_Cliente_CPF, Brinquedos_Cod_brinquedo, Hora),
-  CONSTRAINT fk_Cartao_cobranca_Data FOREIGN KEY (Cartao_cobranca_Data)  REFERENCES Cartao_cobranca(Data),
-  CONSTRAINT fk_Cartao_cobranca_Cliente_CPF FOREIGN KEY (Cartao_cobranca_Cliente_CPF) REFERENCES Cartao_cobranca(Cliente_CPF),
-  CONSTRAINT fk_Brinquedos_Cod_brinquedo_cartao_cobranca FOREIGN KEY (Brinquedos_Cod_brinquedo) REFERENCES Brinquedos(Cod_brinquedo)
+  CONSTRAINT pk_Cartao_cobranca_brinquedos 
+  PRIMARY KEY (Cartao_cobranca_Data, Cartao_cobranca_Cliente_CPF,
+Brinquedos_Cod_brinquedo, Hora),
+  CONSTRAINT fk_Cartao_cobranca_Data 
+  FOREIGN KEY (Cartao_cobranca_Data)  
+  REFERENCES Cartao_cobranca(Data),
+  CONSTRAINT fk_Cartao_cobranca_Cliente_CPF 
+  FOREIGN KEY (Cartao_cobranca_Cliente_CPF) 
+  REFERENCES Cartao_cobranca(Cliente_CPF),
+  CONSTRAINT fk_Brinquedos_Cod_brinquedo_cartao_cobranca 
+  FOREIGN KEY (Brinquedos_Cod_brinquedo) 
+  REFERENCES Brinquedos(Cod_brinquedo)
 );
 
 CREATE TABLE Telefones_funcionario (
   Telefone INT NOT NULL,
   Funcionario_CPF BIGINT NOT NULL,
-  CONSTRAINT pk_Telefones_funcionario PRIMARY KEY (Telefone, Funcionario_CPF),
-  CONSTRAINT fk_Funcionario_CPF_tel FOREIGN KEY (Funcionario_CPF) REFERENCES Funcionario(CPF)
+  CONSTRAINT pk_Telefones_funcionario 
+  PRIMARY KEY (Telefone, Funcionario_CPF),
+  CONSTRAINT fk_Funcionario_CPF_tel 
+  FOREIGN KEY (Funcionario_CPF) 
+  REFERENCES Funcionario(CPF)
 );
 
 CREATE TABLE Telefones_cliente (
   Telefone INT NOT NULL,
   Cliente_CPF BIGINT NOT NULL,
   CONSTRAINT pk_Telefones_cliente PRIMARY KEY (Telefone, Cliente_CPF),
-  CONSTRAINT fk_cliente_cpf_tel FOREIGN KEY (Cliente_CPF) REFERENCES Cliente(CPF)
+  CONSTRAINT fk_cliente_cpf_tel 
+  FOREIGN KEY (Cliente_CPF) 
+  REFERENCES Cliente(CPF)
 );
 ```
 

@@ -32,7 +32,8 @@
 <p>Neste trabalho serão apresentados todos os passos de modelagem de um projeto básico de banco de dados, da descrição do minimundo até sua implementação funcional.
 O tema abordado será o gerenciamento do cartão de visita de um visitante em um parque de diversões.</p>
 <h2 id="minimundo">Minimundo</h2>
-<p>O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Seus visitantes recebem na entrada um cartão digital que deve ser apresentado na entrada de cada brinquedo. Cada brinquedo possui um nome e código de identificação. Sendo a gerência do parque muito gananciosa, cada cartão de visitante deve registrar a cobrança de entrada nos brinquedos cada vez que for utilizado, ou seja, o visitante paga cada vez que for usar um brinquedo. Os funcionários deste parque também são muito ocupados, tendo muitas vezes que trabalhar em mais de um brinquedo, sendo que cada brinquedo pode precisar de um ou mais funcionários. Para estimular uma concorrência saudável entre seus funcionários, a gerência do parque paga um adicional de dois por cento do dinheiro arrecadado em cada brinquedo para cada funcionario responsável por ele. A fim de evitar fraudes, tanto os clientes quanto os funcionários devem ser registrados de acordo com o seu nome completo, CPF, endereço e telefone(s) para contato. Para disfarçar sua ganância o parque permite que cada cartão sejá válido por um dia inteiro. Ao final do dia o visitante deve pagar o valor acumulado de todos os brinquedos que visitou.</p>
+<p>O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Seus visitantes recebem na entrada um cartão digital que deve ser apresentado na entrada de cada brinquedo. Cada brinquedo possui um nome e código de identificação. Sendo a gerência do parque muito gananciosa, cada cartão de visitante deve registrar a cobrança de entrada nos brinquedos cada vez que for utilizado, ou seja, o visitante paga cada vez que for usar um brinquedo. Os funcionários deste parque também são muito ocupados, tendo muitas vezes que trabalhar em mais de um brinquedo, sendo que cada brinquedo pode precisar de um ou mais funcionários. Para estimular uma concorrência saudável entre seus funcionários, a gerência do parque paga um adicional de dois por cento do dinheiro arrecadado em cada brinquedo para cada funcionario responsável por ele. A fim de evitar fraudes, tanto os clientes quanto os funcionários devem ser registrados de acordo com o seu nome completo, CPF, endereço e telefone(s) para contato. Para disfarçar sua ganância o parque permite que cada cartão sejá válido por um dia inteiro. Ao final do dia o visitante deve pagar o valor acumulado de todos os brinquedos que visitou.
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></p>
 <h2 id="modelo-conceitual">Modelo conceitual</h2>
 <h3 id="diagrama-entidade-relacionamento">Diagrama entidade-relacionamento</h3>
 <p><img src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\ModeloConceitual.png"></img></p>
@@ -91,13 +92,59 @@ O tema abordado será o gerenciamento do cartão de visita de um visitante em um
 <h3 id="funcion%c3%a1rios-que-visitaram-os-brinquedos-em-que-trabalham-como-clientes">Funcionários que visitaram os brinquedos em que trabalham como clientes</h3>
 <p><img style ="border: 2px solid black"  src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\equacoesAlgebraRelacional\Eq4.jpg"></img></p>
 <h2 id="consultas-em-sql">Consultas em SQL</h2>
+<h3 id="listar-valor-a-ser-cobrado-de-cada-cliente-por-cada-dia-de-visita">Listar valor a ser cobrado de cada cliente por cada dia de visita</h3>
+<pre><code class="language-sql"><div><span class="hljs-keyword">SELECT</span> A.Cartao_cobranca_data <span class="hljs-keyword">as</span> <span class="hljs-keyword">Data</span>, 
+C.nome <span class="hljs-keyword">as</span> Nome, <span class="hljs-keyword">sum</span>(B.preco) <span class="hljs-keyword">as</span> Valor 
+<span class="hljs-keyword">FROM</span> Cartao_cobranca_brinquedos A, Brinquedos B, Cliente C 
+<span class="hljs-keyword">WHERE</span> A.Brinquedos_Cod_brinquedo = B.cod_brinquedo 
+<span class="hljs-keyword">AND</span> A.Cartao_cobranca_Cliente_CPF = C.CPF 
+<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> A.Cartao_cobranca_data,A.Cartao_cobranca_Cliente_CPF 
+</div></code></pre>
+<h3 id="salario-de-cada-funcionario-para-o-m%c3%aas-de-junho">Salario de cada funcionario para o mês de Junho</h3>
+<pre><code class="language-sql"><div><span class="hljs-keyword">select</span> C.nome, <span class="hljs-number">500</span>+<span class="hljs-keyword">sum</span>(<span class="hljs-number">0.02</span>*A.visitas*D.preco) <span class="hljs-keyword">as</span> Salario
+<span class="hljs-keyword">from</span> (<span class="hljs-keyword">select</span> Brinquedos_Cod_brinquedo <span class="hljs-keyword">as</span> cod_brinquedo, 
+<span class="hljs-keyword">count</span>(Cartao_cobranca_cliente_cpf) <span class="hljs-keyword">as</span> visitas 
+<span class="hljs-keyword">from</span> cartao_cobranca_brinquedos 
+<span class="hljs-keyword">where</span> Cartao_cobranca_data &lt;<span class="hljs-string">"2019-07-01"</span> 
+<span class="hljs-keyword">AND</span> Cartao_cobranca_data &gt; <span class="hljs-string">"2019-05-31"</span> 
+<span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> Brinquedos_Cod_brinquedo) A, funcionario_brinquedos B, 
+Funcionario C, Brinquedos D
+<span class="hljs-keyword">where</span> C.cpf = B.Funcionario_CPF 
+<span class="hljs-keyword">AND</span> B.Brinquedos_cod_brinquedo = A.cod_brinquedo 
+<span class="hljs-keyword">AND</span> B.Brinquedos_cod_brinquedo = D.cod_brinquedo
+<span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> nome 
+<span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> nome
+</div></code></pre>
+<h3 id="funcion%c3%a1rios-que-tamb%c3%a9m-visitaram-o-parque-como-clientes">Funcionários que também visitaram o parque como clientes</h3>
+<pre><code class="language-sql"><div><span class="hljs-keyword">SELECT</span> nome <span class="hljs-keyword">FROM</span> Cliente <span class="hljs-keyword">INTERSECT</span> <span class="hljs-keyword">SELECT</span> nome <span class="hljs-keyword">FROM</span> Funcionario 
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> nome
+</div></code></pre>
+<h3 id="clientes-e-funcionarios-que-possuem-mais-de-um-telefone-para-contato-ou-possuem-telefone-igual-%c3%a1-outro-cliente">Clientes e funcionarios que possuem mais de um telefone para contato ou possuem telefone igual á outro cliente</h3>
+<pre><code class="language-sql"><div>(<span class="hljs-keyword">select</span> C.Cliente_CPF 
+<span class="hljs-keyword">from</span> 
+(<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> telefones_cliente 
+<span class="hljs-keyword">UNION</span> 
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> telefones_Funcionario) C, 
+(<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> telefones_cliente 
+<span class="hljs-keyword">UNION</span> 
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> telefones_Funcionario) D 
+<span class="hljs-keyword">where</span> C.Telefone = D.Telefone 
+<span class="hljs-keyword">AND</span> C.Cliente_cpf &lt;&gt; D.cliente_cpf) 
+<span class="hljs-keyword">UNION</span>
+(<span class="hljs-keyword">select</span> B.cliente_CPF 
+<span class="hljs-keyword">from</span> (<span class="hljs-keyword">select</span> A.Cliente_CPF, <span class="hljs-keyword">count</span>(A.Telefone) <span class="hljs-keyword">as</span> cnt
+<span class="hljs-keyword">from</span> (<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> telefones_cliente <span class="hljs-keyword">UNION</span> <span class="hljs-keyword">select</span> * 
+<span class="hljs-keyword">from</span> telefones_Funcionario) A <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> Cliente_CPF) B
+<span class="hljs-keyword">where</span> B.cnt &gt; <span class="hljs-number">1</span>)
+</div></code></pre>
+<p></br></br></br></p>
 <h2 id="script-ddl">Script DDL</h2>
 <pre><code class="language-sql"><div><span class="hljs-keyword">create</span> <span class="hljs-keyword">database</span> bd1;
 
 <span class="hljs-keyword">use</span> bd1;
 
 <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Cliente (
-  CPF <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  CPF <span class="hljs-built_in">BIGINT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> PRIMARY <span class="hljs-keyword">KEY</span>,
   Nome <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">45</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
   Endereco <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">100</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
 );
@@ -109,49 +156,69 @@ O tema abordado será o gerenciamento do cartão de visita de um visitante em um
 );
 
 <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Funcionario (
-  CPF <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  CPF <span class="hljs-built_in">BIGINT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> PRIMARY <span class="hljs-keyword">KEY</span>,
   Nome <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">45</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
   Endereco <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">45</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
 );
 
 <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Funcionario_Brinquedos (
-  Funcionario_CPF <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  Funcionario_CPF <span class="hljs-built_in">BIGINT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
   Brinquedos_Cod_brinquedo <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
-  <span class="hljs-keyword">CONSTRAINT</span> pk_Funcionario_Brinquedos PRIMARY <span class="hljs-keyword">KEY</span> (Funcionario_CPF, Brinquedos_Cod_brinquedo),
-  <span class="hljs-keyword">CONSTRAINT</span> fk_Funcionario_CPF <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Funcionario_CPF) <span class="hljs-keyword">REFERENCES</span> Funcionario(CPF),
-  <span class="hljs-keyword">CONSTRAINT</span> fk_Brinquedos_Cod_brinquedo_funcionarios  <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Brinquedos_Cod_brinquedo) <span class="hljs-keyword">REFERENCES</span> Brinquedos(Cod_brinquedo)
+  <span class="hljs-keyword">CONSTRAINT</span> pk_Funcionario_Brinquedos PRIMARY <span class="hljs-keyword">KEY</span> 
+  (Funcionario_CPF, Brinquedos_Cod_brinquedo),
+  <span class="hljs-keyword">CONSTRAINT</span> fk_Funcionario_CPF 
+  <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Funcionario_CPF) 
+  <span class="hljs-keyword">REFERENCES</span> Funcionario(CPF),
+  <span class="hljs-keyword">CONSTRAINT</span> fk_Brinquedos_Cod_brinquedo_funcionarios 
+  <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Brinquedos_Cod_brinquedo) 
+  <span class="hljs-keyword">REFERENCES</span> Brinquedos(Cod_brinquedo)
 );
 
 <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Cartao_cobranca (
   <span class="hljs-keyword">Data</span> <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
-  Cliente_CPF <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  Cliente_CPF <span class="hljs-built_in">BIGINT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
   <span class="hljs-keyword">CONSTRAINT</span> pk_Cartao_cobranca PRIMARY <span class="hljs-keyword">KEY</span> (<span class="hljs-keyword">Data</span>, Cliente_CPF),
-  <span class="hljs-keyword">CONSTRAINT</span> fk_Cliente_CPF <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Cliente_CPF) <span class="hljs-keyword">REFERENCES</span> Cliente(CPF)
+  <span class="hljs-keyword">CONSTRAINT</span> fk_Cliente_CPF 
+  <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Cliente_CPF) 
+  <span class="hljs-keyword">REFERENCES</span> Cliente(CPF)
 );
 
 <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Cartao_cobranca_brinquedos (
   Cartao_cobranca_Data <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
-  Cartao_cobranca_Cliente_CPF <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  Cartao_cobranca_Cliente_CPF <span class="hljs-built_in">BIGINT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
   Brinquedos_Cod_brinquedo <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
   Hora <span class="hljs-built_in">TIME</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
-  <span class="hljs-keyword">CONSTRAINT</span> pk_Cartao_cobranca_brinquedos PRIMARY <span class="hljs-keyword">KEY</span> (Cartao_cobranca_Data, Cartao_cobranca_Cliente_CPF, Brinquedos_Cod_brinquedo, Hora),
-  <span class="hljs-keyword">CONSTRAINT</span> fk_Cartao_cobranca_Data <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Cartao_cobranca_Data)  <span class="hljs-keyword">REFERENCES</span> Cartao_cobranca(<span class="hljs-keyword">Data</span>),
-  <span class="hljs-keyword">CONSTRAINT</span> fk_Cartao_cobranca_Cliente_CPF <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Cartao_cobranca_Cliente_CPF) <span class="hljs-keyword">REFERENCES</span> Cartao_cobranca(Cliente_CPF),
-  <span class="hljs-keyword">CONSTRAINT</span> fk_Brinquedos_Cod_brinquedo_cartao_cobranca <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Brinquedos_Cod_brinquedo) <span class="hljs-keyword">REFERENCES</span> Brinquedos(Cod_brinquedo)
+  <span class="hljs-keyword">CONSTRAINT</span> pk_Cartao_cobranca_brinquedos 
+  PRIMARY <span class="hljs-keyword">KEY</span> (Cartao_cobranca_Data, Cartao_cobranca_Cliente_CPF,
+Brinquedos_Cod_brinquedo, Hora),
+  <span class="hljs-keyword">CONSTRAINT</span> fk_Cartao_cobranca_Data 
+  <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Cartao_cobranca_Data)  
+  <span class="hljs-keyword">REFERENCES</span> Cartao_cobranca(<span class="hljs-keyword">Data</span>),
+  <span class="hljs-keyword">CONSTRAINT</span> fk_Cartao_cobranca_Cliente_CPF 
+  <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Cartao_cobranca_Cliente_CPF) 
+  <span class="hljs-keyword">REFERENCES</span> Cartao_cobranca(Cliente_CPF),
+  <span class="hljs-keyword">CONSTRAINT</span> fk_Brinquedos_Cod_brinquedo_cartao_cobranca 
+  <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Brinquedos_Cod_brinquedo) 
+  <span class="hljs-keyword">REFERENCES</span> Brinquedos(Cod_brinquedo)
 );
 
 <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Telefones_funcionario (
   Telefone <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
-  Funcionario_CPF <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
-  <span class="hljs-keyword">CONSTRAINT</span> pk_Telefones_funcionario PRIMARY <span class="hljs-keyword">KEY</span> (Telefone, Funcionario_CPF),
-  <span class="hljs-keyword">CONSTRAINT</span> fk_Funcionario_CPF_tel <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Funcionario_CPF) <span class="hljs-keyword">REFERENCES</span> Funcionario(CPF)
+  Funcionario_CPF <span class="hljs-built_in">BIGINT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  <span class="hljs-keyword">CONSTRAINT</span> pk_Telefones_funcionario 
+  PRIMARY <span class="hljs-keyword">KEY</span> (Telefone, Funcionario_CPF),
+  <span class="hljs-keyword">CONSTRAINT</span> fk_Funcionario_CPF_tel 
+  <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Funcionario_CPF) 
+  <span class="hljs-keyword">REFERENCES</span> Funcionario(CPF)
 );
 
 <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Telefones_cliente (
   Telefone <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
-  Cliente_CPF <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  Cliente_CPF <span class="hljs-built_in">BIGINT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
   <span class="hljs-keyword">CONSTRAINT</span> pk_Telefones_cliente PRIMARY <span class="hljs-keyword">KEY</span> (Telefone, Cliente_CPF),
-  <span class="hljs-keyword">CONSTRAINT</span> fk_cliente_cpf_tel <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Cliente_CPF) <span class="hljs-keyword">REFERENCES</span> Cliente(CPF)
+  <span class="hljs-keyword">CONSTRAINT</span> fk_cliente_cpf_tel 
+  <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span> (Cliente_CPF) 
+  <span class="hljs-keyword">REFERENCES</span> Cliente(CPF)
 );
 </div></code></pre>
 
