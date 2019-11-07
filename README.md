@@ -90,6 +90,25 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
 
 ## Consultas em SQL
 
+### Listar valor a ser cobrado de cada cliente por cada dia de visita
+
+```sql
+SELECT A.Cartao_cobranca_data as Data, C.nome as Nome, sum(B.preco) as Valor 
+FROM Cartao_cobranca_brinquedos A, Brinquedos B, Cliente C 
+WHERE A.Brinquedos_Cod_brinquedo = B.cod_brinquedo AND A.Cartao_cobranca_Cliente_CPF = C.CPF 
+GROUP BY A.Cartao_cobranca_data,A.Cartao_cobranca_Cliente_CPF 
+```
+
+### Salario de cada funcionario para o mês de Junho
+
+```sql
+select C.nome, 500+sum(0.02*A.visitas*D.preco) as Salario
+from (select Brinquedos_Cod_brinquedo as cod_brinquedo, count(Cartao_cobranca_cliente_cpf) as visitas from cartao_cobranca_brinquedos where Cartao_cobranca_data <"2019-07-01" AND Cartao_cobranca_data > "2019-05-31" group by Brinquedos_Cod_brinquedo) A, funcionario_brinquedos B, Funcionario C, Brinquedos D
+where C.cpf = B.Funcionario_CPF AND B.Brinquedos_cod_brinquedo = A.cod_brinquedo AND B.Brinquedos_cod_brinquedo = D.cod_brinquedo
+group by nome 
+order by nome
+```
+
 ## Script DDL
 
 ```sql
