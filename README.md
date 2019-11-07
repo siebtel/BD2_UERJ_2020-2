@@ -81,9 +81,14 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
 
 <img src="equacoesAlgebraRelacional\Eq1.jpg"></img>
 
-### Calculo do salário do funcionário Dennis Ribeiro
+### Calculo do salário do funcionário Dennis Ribeiro no mês de junho
 </br>
 <img src="equacoesAlgebraRelacional\Eq2.jpg"></img>
+
+### Clientes que visitaram todos os brinquedos em qualquer intervalo de tempo
+</br>
+<img src="equacoesAlgebraRelacional\Eq3.jpg"></img>
+
 
 
 
