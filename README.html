@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Trabalho da disciplina banco de dados I - UERJ 2019/2</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+    </head>
+    <body class="vscode-light">
+        <h1 id="trabalho-da-disciplina-banco-de-dados-i---uerj-20192">Trabalho da disciplina banco de dados I - UERJ 2019/2</h1>
+<h2 id="integrantes">Integrantes</h2>
+<ul>
+<li>Dennis Ribeiro Paiva - 201610050611</li>
+<li>Paulo Victor Coelho - 201610049711</li>
+<li>Vinicius Sathler - 201610051611</li>
+</ul>
+<h2 id="introdu%c3%a7%c3%a3o">Introdução</h2>
+<p>Neste trabalho serão apresentados todos os passos de modelagem de um projeto básico de banco de dados, da descrição do minimundo até sua implementação funcional.
+O tema abordado será o gerenciamento do cartão de visita de um visitante em um parque de diversões.</p>
+<h2 id="minimundo">Minimundo</h2>
+<p>O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Seus visitantes recebem na entrada um cartão digital que deve ser apresentado na entrada de cada brinquedo. Cada brinquedo possui um nome e código de identificação. Sendo a gerência do parque muito gananciosa, cada cartão de visitante deve registrar a cobrança de entrada nos brinquedos cada vez que for utilizado, ou seja, o visitante paga cada vez que for usar um brinquedo. Os funcionários deste parque também são muito ocupados, tendo muitas vezes que trabalhar em mais de um brinquedo, sendo que cada brinquedo pode precisar de um ou mais funcionários. Para estimular uma concorrência saudável entre seus funcionários, a gerência do parque paga um adicional de dois por cento do dinheiro arrecadado em cada brinquedo para cada funcionario responsável por ele. A fim de evitar fraudes, tanto os clientes quanto os funcionários devem ser registrados de acordo com o seu nome completo, CPF, endereço e telefone(s) para contato. Para disfarçar sua ganância o parque permite que cada cartão sejá válido por um dia inteiro. Ao final do dia o visitante deve pagar o valor acumulado de todos os brinquedos que visitou.</p>
+<h2 id="modelo-conceitual">Modelo conceitual</h2>
+<h3 id="diagrama-entidade-relacionamento">Diagrama entidade-relacionamento</h3>
+<p><img src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\ModeloConceitual.png"></img></p>
+<h3 id="restri%c3%a7%c3%b5es-de-dom%c3%adnio">Restrições de Domínio</h3>
+<ul>
+    <li>Visitante:<ul><li>CPF: Número inteiro de onze dígitos.</li><li>Nome: String de no máximo 40 caracteres.</li><li>Endereço: String de no máximo 80 caracteres.</li><li>Telefone: Numero inteiro formado por oito ou nove dígitos.</li>
+    </ul>
+    </li>
+    <li>Cartão:<ul><li>Data: Data no formato aaaa-mm-dd de acordo com o tipo DATE da linguagem mySQL.</li></ul></li>
+    <li>Brinquedo:<ul><li>Cod_brinquedo: Numero inteiro de cinco dígitos.</li><li>Nome: String de no máximo 40 caracteres.</li><li>Preço: Número real positivo com duas casas decimais de precisão.</li></ul></li>
+    <li>Registra (Cartão-Brinquedo):<ul><li> Hora: registro de hora no formato hh-mm-ss de acordo com o tipo TIME da linguagem mySQL.</li></ul></li>
+    <li>Funcionário:<ul><li>CPF: Número inteiro de onze dígitos.</li><li>Nome: String de no máximo 40 caracteres.</li><li>Endereço: String de no máximo 80 caracteres.</li><li>Telefone: Numero inteiro formado por oito ou nove dígitos.</li>
+</ul></ul>
+<h2 id="modelo-relacional">Modelo Relacional</h2>
+<h3 id="descri%c3%a7%c3%a3o">Descrição</h3>
+<ul>
+<li><strong>Chave primária</strong><br/></li>
+<li><em>Chave estrangeira</em>
+<br><br><br></li>
+<li>Cliente (<strong>CPF</strong>, Nome, Endereço)</li>
+<li>Telefones_cliente (<strong>Telefone</strong>, <strong><em>Cliente_CPF</em></strong>)</li>
+<li>Cartao_Cobrança (<strong>Data</strong>, <em><strong>Cliente_CPF</strong></em>)</li>
+<li>Brinquedo (<strong>Cod_brinquedo</strong>, Nome, Preço)</li>
+<li>Cartao_cobranca (<strong>Hora</strong>, <em><strong>Cartao_Cobrança_Data</strong></em>, <em><strong>Cartao_Cobranca_Cliente_CPF</strong></em>, <em><strong>Brinquedo_Cod_brinquedo</strong></em>)</li>
+<li>Funcionario (<strong>CPF</strong>, Nome, Endereço)</li>
+<li>Telefones_funcionario (<strong>Telefone</strong>, <strong><em>Funcionario_CPF</em></strong>)</li>
+<li>Funcionario_brinquedo (<em><strong>Funcionario_CPF</strong></em>, <em><strong>Brinquedo_Cod_brinquedo</strong></em>)</li>
+</ul>
+<p>
+    Sabendo-se que cada Cliente possui nenhum ou vários cartões, mas que cada cartão está vinculado a obrigatoriamente um e apenas um cliente, foi adicionada uma coluna extra na tabela cartão para referenciar o cliente ao qual ele está asssociado
+</p>
+<p>
+    Como cada cartão de cobrança pode registrar nenhum ou vários brinquedos, e cada brinquedo pode estar registrado em nenhum ou vários cartões, criou-se uma nova tabela para relação
+</p>
+<p>
+    Cada funcionário pode trabalhar em nenhum ou mais de um brinquedo, e cada brinquedo possui entre um e varios funcionários. De maneira análoga a relação brinquedo-cartão foi criada uma nova tabela
+</p>
+<h3 id="diagrama">Diagrama</h3>
+<p><img src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\ModeloRelacional.png"></img></p>
+<h3 id="restri%c3%a7%c3%b5es-sem%c3%a2nticas">Restrições Semânticas</h3>
+<ol>
+    <li>
+        Cada funcionário não pode receber menos do que o salário minímo, estipulado em $sc 500,00 
+    </li>
+    <li>
+        O visitante paga por cada brinquedo visitado, mas não pode pagar menos de $sc 100,00
+    </li>
+</ol>
+<h2 id="algebra-relacional">Algebra Relacional</h2>
+<h3 id="cobran%c3%a7a-do-visitante-paulo-coelho-no-dia-01-de-junho-de-2019">Cobrança do visitante Paulo Coelho no dia 01 de Junho de 2019</h3>
+<p><img style ="border: 2px solid black" src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\equacoesAlgebraRelacional\Eq1.jpg"></img></p>
+<h3 id="calculo-do-sal%c3%a1rio-do-funcion%c3%a1rio-dennis-ribeiro-no-m%c3%aas-de-junho">Calculo do salário do funcionário Dennis Ribeiro no mês de junho</h3>
+<p><img style ="border: 2px solid black"  src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\equacoesAlgebraRelacional\Eq2.jpg"></img></p>
+<h3 id="clientes-que-visitaram-todos-os-brinquedos-em-qualquer-intervalo-de-tempo">Clientes que visitaram todos os brinquedos em qualquer intervalo de tempo</h3>
+<p><img style ="border: 2px solid black"  src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\equacoesAlgebraRelacional\Eq3.jpg"></img></p>
+
+    </body>
+    </html>

@@ -45,7 +45,7 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
 * Telefones_cliente (**Telefone**, **_Cliente_CPF_**)
 * Cartao_Cobrança (**Data**, _**Cliente_CPF**_)
 * Brinquedo (**Cod_brinquedo**, Nome, Preço)
-* Cartao_cobranca (**Hora**, _**Cartao_Cobrança_Data**_, _**Cartao_Cobranca_Cliente_CPF**_, _**Brinquedo_Cod_brinquedo**_)
+* Cartao_cobranca_brinquedo (**Hora**, _**Cartao_Cobrança_Data**_, _**Cartao_Cobranca_Cliente_CPF**_, _**Brinquedo_Cod_brinquedo**_)
 * Funcionario (**CPF**, Nome, Endereço)
 * Telefones_funcionario (**Telefone**, **_Funcionario_CPF_**)
 * Funcionario_brinquedo (_**Funcionario_CPF**_, _**Brinquedo_Cod_brinquedo**_)
@@ -77,17 +77,16 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
 ## Algebra Relacional
 
 ### Cobrança do visitante Paulo Coelho no dia 01 de Junho de 2019
-</br>
-
-<img src="equacoesAlgebraRelacional\Eq1.jpg"></img>
+<img style ="border: 2px solid black" src="equacoesAlgebraRelacional\Eq1.jpg"></img>
 
 ### Calculo do salário do funcionário Dennis Ribeiro no mês de junho
-</br>
-<img src="equacoesAlgebraRelacional\Eq2.jpg"></img>
+<img style ="border: 2px solid black"  src="equacoesAlgebraRelacional\Eq2.jpg"></img>
 
 ### Clientes que visitaram todos os brinquedos em qualquer intervalo de tempo
-</br>
-<img src="equacoesAlgebraRelacional\Eq3.jpg"></img>
+<img style ="border: 2px solid black"  src="equacoesAlgebraRelacional\Eq3.jpg"></img>
+
+### Funcionários que visitaram os brinquedos em que trabalham como clientes
+<img style ="border: 2px solid black"  src="equacoesAlgebraRelacional\Eq4.jpg"></img>
 
 
 
