@@ -42,13 +42,13 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
 * _Chave estrangeira_
 <br><br><br>
 * Cliente (**CPF**, Nome, Endereço)
-* Telefones_cliente (**Telefone**, _Cliente_CPF_)
+* Telefones_cliente (**Telefone**, **_Cliente_CPF_**)
 * Cartao_Cobrança (**Data**, _**Cliente_CPF**_)
 * Brinquedo (**Cod_brinquedo**, Nome, Preço)
-* Cartao_cobranca_has_brinquedo (**Hora**, _**Cartao_Cobrança_Data**_, _**Cartao_Cobranca_Cliente**_, _**Brinquedo_Cod_briqneudo**_)
+* Cartao_cobranca (**Hora**, _**Cartao_Cobrança_Data**_, _**Cartao_Cobranca_Cliente_CPF**_, _**Brinquedo_Cod_brinquedo**_)
 * Funcionario (**CPF**, Nome, Endereço)
-* Telefones_funcionario (**Telefone**, _Funcionario_CPF_)
-* Funcionario_has_brinquedo (_**Funcionario_CPF**_, _**Brinquedo_Cod_brinquedo**_)
+* Telefones_funcionario (**Telefone**, **_Funcionario_CPF_**)
+* Funcionario_brinquedo (_**Funcionario_CPF**_, _**Brinquedo_Cod_brinquedo**_)
   
 <p>
     Sabendo-se que cada Cliente possui nenhum ou vários cartões, mas que cada cartão está vinculado a obrigatoriamente um e apenas um cliente, foi adicionada uma coluna extra na tabela cartão para referenciar o cliente ao qual ele está asssociado
@@ -59,9 +59,12 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
 <p>
     Cada funcionário pode trabalhar em nenhum ou mais de um brinquedo, e cada brinquedo possui entre um e varios funcionários. De maneira análoga a relação brinquedo-cartão foi criada uma nova tabela
 </p>
+
+### Diagrama
+
 <img src="ModeloRelacional.png"></img>
 
-## Restrições Semânticas
+### Restrições Semânticas
 <ol>
     <li>
         Cada funcionário não pode receber menos do que o salário minímo, estipulado em $sc 500,00 
@@ -70,5 +73,11 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
         O visitante paga por cada brinquedo visitado, mas não pode pagar menos de $sc 100,00
     </li>
 </ol>
+
+## Algebra Relacional
+
+### Cobrança do visitante Paulo Coelho no dia 01 de Junho de 2019
+
+<img src="equacoesAlgebraRelacional\Eq1.jpg"></img>
 
 
