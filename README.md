@@ -14,7 +14,7 @@ O tema abordado será o gerenciamento do cartão de visita de um visitante em um
 ## Minimundo
 
 O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Seus visitantes recebem na entrada um cartão digital que deve ser apresentado na entrada de cada brinquedo. Cada brinquedo possui um nome e código de identificação. Sendo a gerência do parque muito gananciosa, cada cartão de visitante deve registrar a cobrança de entrada nos brinquedos cada vez que for utilizado, ou seja, o visitante paga cada vez que for usar um brinquedo. Os funcionários deste parque também são muito ocupados, tendo muitas vezes que trabalhar em mais de um brinquedo, sendo que cada brinquedo pode precisar de um ou mais funcionários. Para estimular uma concorrência saudável entre seus funcionários, a gerência do parque paga um adicional de dois por cento do dinheiro arrecadado em cada brinquedo para cada funcionario responsável por ele. A fim de evitar fraudes, tanto os clientes quanto os funcionários devem ser registrados de acordo com o seu nome completo, CPF, endereço e telefone(s) para contato. Para disfarçar sua ganância o parque permite que cada cartão sejá válido por um dia inteiro. Ao final do dia o visitante deve pagar o valor acumulado de todos os brinquedos que visitou.
-</br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
 ## Modelo conceitual
 
 ### Diagrama entidade-relacionamento
@@ -33,7 +33,7 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
     <li>Funcionário:<ul><li>CPF: Número inteiro de onze dígitos.</li><li>Nome: String de no máximo 40 caracteres.</li><li>Endereço: String de no máximo 80 caracteres.</li><li>Telefone: Numero inteiro formado por oito ou nove dígitos.</li>
 </ul></ul>
 
-
+</br></br></br></br></br>
 ## Modelo Relacional
 
 ### Descrição
@@ -74,6 +74,8 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
     </li>
 </ol>
 
+</br>
+
 ## Algebra Relacional
 
 ### Cobrança do visitante Paulo Coelho no dia 01 de Junho de 2019
@@ -87,6 +89,7 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
 
 ### Funcionários que visitaram os brinquedos em que trabalham como clientes
 <img style ="border: 2px solid black"  src="equacoesAlgebraRelacional\Eq4.jpg"></img>
+</br></br></br></br></br></br></br></br>
 
 ## Consultas em SQL
 
@@ -145,7 +148,7 @@ from (select * from telefones_cliente UNION select *
 from telefones_Funcionario) A group by Cliente_CPF) B
 where B.cnt > 1)
 ```
-</br></br></br>
+
 ## Script DDL
 
 ```sql
@@ -231,6 +234,17 @@ CREATE TABLE Telefones_cliente (
   REFERENCES Cliente(CPF)
 );
 ```
+## Avaliação de qualidade das tabelas
+
+### Telefone
+
+O atributo telefone se encontra na tabela de Funcionário e Cliente. Por ser multivalorado se fez necessária, de acordo com a primeira forma normal, a criação de tabelas a parte. Como clientes diferentes podem cadastrar o mesmo telefone (marido e mulher por exemplo), foi definido o campo telefone como chave primária.
+
+### Cartao_Cobrança 
+A tabela cartão_cobrança se relaciona n para n. O cartão contém o campo Data que especifica o dia em que o cliente foi ao parque, como cada cliente pode visitar o parque em diferentes dias, se fez necessário tornar o atributo data chave primária junto do cpf do cliente, que também é chave estrangeira que relaciona o cartão ao cliente. Dessa forma garantiu-se que a tabela satisfaz todas as condições da terceira forma normal.
+
+### Cartao_Cobranca_Brinquedos
+A tabela relaciona cada cartão de cobrança ao brinquedos visitados pelo cliente, dessa forma fez-se necessário a inclusão de chaves estrangeiras para cada chave primaria em ambas as tabelas, Como cada cliente pode visitar o mesmo brinquedo várias vezes durante o dia foi adicionada uma nova chave primária, hora, que especifica a hora em que o brinquedo foi visitado. A tabela está de acordo com todas as formas normais pois todos os campos são chaves primárias da tabela e não existe relação de transitividade. 
 
 
 

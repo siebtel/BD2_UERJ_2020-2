@@ -33,10 +33,10 @@
 O tema abordado será o gerenciamento do cartão de visita de um visitante em um parque de diversões.</p>
 <h2 id="minimundo">Minimundo</h2>
 <p>O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Seus visitantes recebem na entrada um cartão digital que deve ser apresentado na entrada de cada brinquedo. Cada brinquedo possui um nome e código de identificação. Sendo a gerência do parque muito gananciosa, cada cartão de visitante deve registrar a cobrança de entrada nos brinquedos cada vez que for utilizado, ou seja, o visitante paga cada vez que for usar um brinquedo. Os funcionários deste parque também são muito ocupados, tendo muitas vezes que trabalhar em mais de um brinquedo, sendo que cada brinquedo pode precisar de um ou mais funcionários. Para estimular uma concorrência saudável entre seus funcionários, a gerência do parque paga um adicional de dois por cento do dinheiro arrecadado em cada brinquedo para cada funcionario responsável por ele. A fim de evitar fraudes, tanto os clientes quanto os funcionários devem ser registrados de acordo com o seu nome completo, CPF, endereço e telefone(s) para contato. Para disfarçar sua ganância o parque permite que cada cartão sejá válido por um dia inteiro. Ao final do dia o visitante deve pagar o valor acumulado de todos os brinquedos que visitou.
-</br></br></br></br></br></br></br></br></br></br></br></br></br></br></p>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></p>
 <h2 id="modelo-conceitual">Modelo conceitual</h2>
 <h3 id="diagrama-entidade-relacionamento">Diagrama entidade-relacionamento</h3>
-<p><img src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\ModeloConceitual.png"></img></p>
+<p><img src="file:////home/livre/Área de Trabalho/Git/BD1_UERJ_2019-2/ModeloConceitual.png"></img></p>
 <h3 id="restri%c3%a7%c3%b5es-de-dom%c3%adnio">Restrições de Domínio</h3>
 <ul>
     <li>Visitante:<ul><li>CPF: Número inteiro de onze dígitos.</li><li>Nome: String de no máximo 40 caracteres.</li><li>Endereço: String de no máximo 80 caracteres.</li><li>Telefone: Numero inteiro formado por oito ou nove dígitos.</li>
@@ -47,6 +47,7 @@ O tema abordado será o gerenciamento do cartão de visita de um visitante em um
     <li>Registra (Cartão-Brinquedo):<ul><li> Hora: registro de hora no formato hh-mm-ss de acordo com o tipo TIME da linguagem mySQL.</li></ul></li>
     <li>Funcionário:<ul><li>CPF: Número inteiro de onze dígitos.</li><li>Nome: String de no máximo 40 caracteres.</li><li>Endereço: String de no máximo 80 caracteres.</li><li>Telefone: Numero inteiro formado por oito ou nove dígitos.</li>
 </ul></ul>
+<p></br></br></br></br></br></p>
 <h2 id="modelo-relacional">Modelo Relacional</h2>
 <h3 id="descri%c3%a7%c3%a3o">Descrição</h3>
 <ul>
@@ -72,7 +73,7 @@ O tema abordado será o gerenciamento do cartão de visita de um visitante em um
     Cada funcionário pode trabalhar em nenhum ou mais de um brinquedo, e cada brinquedo possui entre um e varios funcionários. De maneira análoga a relação brinquedo-cartão foi criada uma nova tabela
 </p>
 <h3 id="diagrama">Diagrama</h3>
-<p><img src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\ModeloRelacional.png"></img></p>
+<p><img src="file:////home/livre/Área de Trabalho/Git/BD1_UERJ_2019-2/ModeloRelacional.png"></img></p>
 <h3 id="restri%c3%a7%c3%b5es-sem%c3%a2nticas">Restrições Semânticas</h3>
 <ol>
     <li>
@@ -82,15 +83,17 @@ O tema abordado será o gerenciamento do cartão de visita de um visitante em um
         O visitante paga por cada brinquedo visitado, mas não pode pagar menos de $sc 100,00
     </li>
 </ol>
+</br>
 <h2 id="algebra-relacional">Algebra Relacional</h2>
 <h3 id="cobran%c3%a7a-do-visitante-paulo-coelho-no-dia-01-de-junho-de-2019">Cobrança do visitante Paulo Coelho no dia 01 de Junho de 2019</h3>
-<p><img style ="border: 2px solid black" src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\equacoesAlgebraRelacional\Eq1.jpg"></img></p>
+<p><img style ="border: 2px solid black" src="file:////home/livre/Área de Trabalho/Git/BD1_UERJ_2019-2/equacoesAlgebraRelacional\Eq1.jpg"></img></p>
 <h3 id="calculo-do-sal%c3%a1rio-do-funcion%c3%a1rio-dennis-ribeiro-no-m%c3%aas-de-junho">Calculo do salário do funcionário Dennis Ribeiro no mês de junho</h3>
-<p><img style ="border: 2px solid black"  src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\equacoesAlgebraRelacional\Eq2.jpg"></img></p>
+<p><img style ="border: 2px solid black"  src="file:////home/livre/Área de Trabalho/Git/BD1_UERJ_2019-2/equacoesAlgebraRelacional\Eq2.jpg"></img></p>
 <h3 id="clientes-que-visitaram-todos-os-brinquedos-em-qualquer-intervalo-de-tempo">Clientes que visitaram todos os brinquedos em qualquer intervalo de tempo</h3>
-<p><img style ="border: 2px solid black"  src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\equacoesAlgebraRelacional\Eq3.jpg"></img></p>
+<p><img style ="border: 2px solid black"  src="file:////home/livre/Área de Trabalho/Git/BD1_UERJ_2019-2/equacoesAlgebraRelacional\Eq3.jpg"></img></p>
 <h3 id="funcion%c3%a1rios-que-visitaram-os-brinquedos-em-que-trabalham-como-clientes">Funcionários que visitaram os brinquedos em que trabalham como clientes</h3>
-<p><img style ="border: 2px solid black"  src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\equacoesAlgebraRelacional\Eq4.jpg"></img></p>
+<p><img style ="border: 2px solid black"  src="file:////home/livre/Área de Trabalho/Git/BD1_UERJ_2019-2/equacoesAlgebraRelacional\Eq4.jpg"></img>
+</br></br></br></br></br></br></br></br></p>
 <h2 id="consultas-em-sql">Consultas em SQL</h2>
 <h3 id="listar-valor-a-ser-cobrado-de-cada-cliente-por-cada-dia-de-visita">Listar valor a ser cobrado de cada cliente por cada dia de visita</h3>
 <pre><code class="language-sql"><div><span class="hljs-keyword">SELECT</span> A.Cartao_cobranca_data <span class="hljs-keyword">as</span> <span class="hljs-keyword">Data</span>, 
@@ -137,7 +140,6 @@ Funcionario C, Brinquedos D
 <span class="hljs-keyword">from</span> telefones_Funcionario) A <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> Cliente_CPF) B
 <span class="hljs-keyword">where</span> B.cnt &gt; <span class="hljs-number">1</span>)
 </div></code></pre>
-<p></br></br></br></p>
 <h2 id="script-ddl">Script DDL</h2>
 <pre><code class="language-sql"><div><span class="hljs-keyword">create</span> <span class="hljs-keyword">database</span> bd1;
 
@@ -221,6 +223,13 @@ Brinquedos_Cod_brinquedo, Hora),
   <span class="hljs-keyword">REFERENCES</span> Cliente(CPF)
 );
 </div></code></pre>
+<h2 id="avalia%c3%a7%c3%a3o-de-qualidade-das-tabelas">Avaliação de qualidade das tabelas</h2>
+<h3 id="telefone">Telefone</h3>
+<p>O atributo telefone se encontra na tabela de Funcionário e Cliente. Por ser multivalorado se fez necessária, de acordo com a primeira forma normal, a criação de tabelas a parte. Como clientes diferentes podem cadastrar o mesmo telefone (marido e mulher por exemplo), foi definido o campo telefone como chave primária.</p>
+<h3 id="cartaocobran%c3%a7a">Cartao_Cobrança</h3>
+<p>A tabela cartão_cobrança se relaciona n para n. O cartão contém o campo Data que especifica o dia em que o cliente foi ao parque, como cada cliente pode visitar o parque em diferentes dias, se fez necessário tornar o atributo data chave primária junto do cpf do cliente, que também é chave estrangeira que relaciona o cartão ao cliente. Dessa forma garantiu-se que a tabela satisfaz todas as condições da terceira forma normal.</p>
+<h3 id="cartaocobrancabrinquedos">Cartao_Cobranca_Brinquedos</h3>
+<p>A tabela relaciona cada cartão de cobrança ao brinquedos visitados pelo cliente, dessa forma fez-se necessário a inclusão de chaves estrangeiras para cada chave primaria em ambas as tabelas, Como cada cliente pode visitar o mesmo brinquedo várias vezes durante o dia foi adicionada uma nova chave primária, hora, que especifica a hora em que o brinquedo foi visitado. A tabela está de acordo com todas as formas normais pois todos os campos são chaves primárias da tabela e não existe relação de transitividade.</p>
 
     </body>
     </html>
