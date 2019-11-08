@@ -33,19 +33,19 @@
 O tema abordado será o gerenciamento do cartão de visita de um visitante em um parque de diversões.</p>
 <h2 id="minimundo">Minimundo</h2>
 <p>O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Seus visitantes recebem na entrada um cartão digital que deve ser apresentado na entrada de cada brinquedo. Cada brinquedo possui um nome e código de identificação. Sendo a gerência do parque muito gananciosa, cada cartão de visitante deve registrar a cobrança de entrada nos brinquedos cada vez que for utilizado, ou seja, o visitante paga cada vez que for usar um brinquedo. Os funcionários deste parque também são muito ocupados, tendo muitas vezes que trabalhar em mais de um brinquedo, sendo que cada brinquedo pode precisar de um ou mais funcionários. Para estimular uma concorrência saudável entre seus funcionários, a gerência do parque paga um adicional de dois por cento do dinheiro arrecadado em cada brinquedo para cada funcionario responsável por ele. A fim de evitar fraudes, tanto os clientes quanto os funcionários devem ser registrados de acordo com o seu nome completo, CPF, endereço e telefone(s) para contato. Para disfarçar sua ganância o parque permite que cada cartão sejá válido por um dia inteiro. Ao final do dia o visitante deve pagar o valor acumulado de todos os brinquedos que visitou.
-</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></p>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></p>
 <h2 id="modelo-conceitual">Modelo conceitual</h2>
 <h3 id="diagrama-entidade-relacionamento">Diagrama entidade-relacionamento</h3>
-<p><img src="file:////home/livre/Área de Trabalho/Git/BD1_UERJ_2019-2/ModeloConceitual.png"></img></p>
+<p><img src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\ModeloConceitual.png"></img></p>
 <h3 id="restri%c3%a7%c3%b5es-de-dom%c3%adnio">Restrições de Domínio</h3>
 <ul>
-    <li>Visitante:<ul><li>CPF: Número inteiro de onze dígitos.</li><li>Nome: String de no máximo 40 caracteres.</li><li>Endereço: String de no máximo 80 caracteres.</li><li>Telefone: Numero inteiro formado por oito ou nove dígitos.</li>
+    <li>Visitante:<ul><li>CPF: Número inteiro de onze dígitos.</li><li>Nome: String de no máximo 45 caracteres.</li><li>Endereço: String de no máximo 100 caracteres.</li><li>Telefone: Numero inteiro formado por oito ou nove dígitos.</li>
     </ul>
     </li>
     <li>Cartão:<ul><li>Data: Data no formato aaaa-mm-dd de acordo com o tipo DATE da linguagem mySQL.</li></ul></li>
-    <li>Brinquedo:<ul><li>Cod_brinquedo: Numero inteiro de cinco dígitos.</li><li>Nome: String de no máximo 40 caracteres.</li><li>Preço: Número real positivo com duas casas decimais de precisão.</li></ul></li>
+    <li>Brinquedo:<ul><li>Cod_brinquedo: Numero inteiro de cinco dígitos.</li><li>Nome: String de no máximo 45 caracteres.</li><li>Preço: Número real positivo com duas casas decimais de precisão.</li></ul></li>
     <li>Registra (Cartão-Brinquedo):<ul><li> Hora: registro de hora no formato hh-mm-ss de acordo com o tipo TIME da linguagem mySQL.</li></ul></li>
-    <li>Funcionário:<ul><li>CPF: Número inteiro de onze dígitos.</li><li>Nome: String de no máximo 40 caracteres.</li><li>Endereço: String de no máximo 80 caracteres.</li><li>Telefone: Numero inteiro formado por oito ou nove dígitos.</li>
+    <li>Funcionário:<ul><li>CPF: Número inteiro de onze dígitos.</li><li>Nome: String de no máximo 45 caracteres.</li><li>Endereço: String de no máximo 100 caracteres.</li><li>Telefone: Numero inteiro formado por oito ou nove dígitos.</li>
 </ul></ul>
 <p></br></br></br></br></br></p>
 <h2 id="modelo-relacional">Modelo Relacional</h2>
@@ -73,7 +73,7 @@ O tema abordado será o gerenciamento do cartão de visita de um visitante em um
     Cada funcionário pode trabalhar em nenhum ou mais de um brinquedo, e cada brinquedo possui entre um e varios funcionários. De maneira análoga a relação brinquedo-cartão foi criada uma nova tabela
 </p>
 <h3 id="diagrama">Diagrama</h3>
-<p><img src="file:////home/livre/Área de Trabalho/Git/BD1_UERJ_2019-2/ModeloRelacional.png"></img></p>
+<p><img src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\ModeloRelacional.png"></img></p>
 <h3 id="restri%c3%a7%c3%b5es-sem%c3%a2nticas">Restrições Semânticas</h3>
 <ol>
     <li>
@@ -86,13 +86,13 @@ O tema abordado será o gerenciamento do cartão de visita de um visitante em um
 </br>
 <h2 id="algebra-relacional">Algebra Relacional</h2>
 <h3 id="cobran%c3%a7a-do-visitante-paulo-coelho-no-dia-01-de-junho-de-2019">Cobrança do visitante Paulo Coelho no dia 01 de Junho de 2019</h3>
-<p><img style ="border: 2px solid black" src="file:////home/livre/Área de Trabalho/Git/BD1_UERJ_2019-2/equacoesAlgebraRelacional\Eq1.jpg"></img></p>
+<p><img style ="border: 2px solid black" src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\equacoesAlgebraRelacional\Eq1.jpg"></img></p>
 <h3 id="calculo-do-sal%c3%a1rio-do-funcion%c3%a1rio-dennis-ribeiro-no-m%c3%aas-de-junho">Calculo do salário do funcionário Dennis Ribeiro no mês de junho</h3>
-<p><img style ="border: 2px solid black"  src="file:////home/livre/Área de Trabalho/Git/BD1_UERJ_2019-2/equacoesAlgebraRelacional\Eq2.jpg"></img></p>
+<p><img style ="border: 2px solid black"  src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\equacoesAlgebraRelacional\Eq2.jpg"></img></p>
 <h3 id="clientes-que-visitaram-todos-os-brinquedos-em-qualquer-intervalo-de-tempo">Clientes que visitaram todos os brinquedos em qualquer intervalo de tempo</h3>
-<p><img style ="border: 2px solid black"  src="file:////home/livre/Área de Trabalho/Git/BD1_UERJ_2019-2/equacoesAlgebraRelacional\Eq3.jpg"></img></p>
+<p><img style ="border: 2px solid black"  src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\equacoesAlgebraRelacional\Eq3.jpg"></img></p>
 <h3 id="funcion%c3%a1rios-que-visitaram-os-brinquedos-em-que-trabalham-como-clientes">Funcionários que visitaram os brinquedos em que trabalham como clientes</h3>
-<p><img style ="border: 2px solid black"  src="file:////home/livre/Área de Trabalho/Git/BD1_UERJ_2019-2/equacoesAlgebraRelacional\Eq4.jpg"></img>
+<p><img style ="border: 2px solid black"  src="file:///c:\Users\Pichau\Documents\Projetos\BD1_UERJ_2019-2\equacoesAlgebraRelacional\Eq4.jpg"></img>
 </br></br></br></br></br></br></br></br></p>
 <h2 id="consultas-em-sql">Consultas em SQL</h2>
 <h3 id="listar-valor-a-ser-cobrado-de-cada-cliente-por-cada-dia-de-visita">Listar valor a ser cobrado de cada cliente por cada dia de visita</h3>
