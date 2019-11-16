@@ -1,15 +1,9 @@
 <?php
-    $opsys = PHP_OS;
-    if($opsys == "Linux"){
-	$password = "root";
-    }
-    else{
-	$password = "";
-    }
+  
     define("HOST", "localhost");
     define("USER", "root");
-    define("PASS", $password);
-    define("DB", "BDI-db");
+    define("PASS", "");
+    define("DB", "bd1");
     function abreConexao() {
         $link = mysqli_connect(HOST, USER, PASS , DB, "3306");
         mysqli_set_charset($link, "utf8");
