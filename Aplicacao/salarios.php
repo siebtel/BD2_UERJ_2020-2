@@ -3,6 +3,9 @@
     $salarios = salarios();
     
     ?>
+    <div class="jumbotron text-center">
+    <h1>Salarios</h1>
+    </div>
         <table class="table">
         <thead>
             <tr>

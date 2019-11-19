@@ -3,6 +3,9 @@
     $brinquedos = listar_brinquedos();
     
 ?>
+    <div class="jumbotron text-center">
+    <h1>Lista de brinquedos</h1>
+    </div>
     <table class="table">
     <thead>
         <tr>

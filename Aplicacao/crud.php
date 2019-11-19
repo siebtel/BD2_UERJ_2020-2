@@ -102,47 +102,133 @@
         }
         return $salarios;
     }
-    /*function salvar($prod, $foto, $quant, $price, $custo, $desc, $rev) {
+
+    ###CLIENTES###
+    function selectUser($id){
         $link = abreConexao();
-        $query = "insert into tb_produtos(produto, foto, quantidade, preco, custo, descricao, review) values ('$prod', '$foto', '$quant', '$price', '$custo', '$desc', '$rev')";
+        $query = "select * from Cliente where CPF = $id";
+        $result = mysqli_query($link, $query);
+        $user = array();
+        while($row = mysqli_fetch_array($result)) {
+            array_push($user, $row);
+        }
+        return $user;
+    }
+
+    function selectTelsFromUser($id){
+        $link = abreConexao();
+        $query = "select Telefone from telefones_cliente where Cliente_CPF = $id";
+        $result = mysqli_query($link, $query);
+        $telefones = array();
+        while($row = mysqli_fetch_array($result)) {
+            array_push($telefones, $row);
+        }
+        return $telefones;
+    }
+
+    function updateUser($id, $nome, $end){
+        $link = abreConexao();
+        $query = "update Cliente set Nome='$nome', Endereco='$end' where CPF = $id ";
         if(mysqli_query($link, $query)) {
             return true;
         }
         return false;
     }
-     function buscar($prod) {
+
+    function cadastrarTelefoneUser($id, $tel){
         $link = abreConexao();
-        $query = "select * from tb_produtos where produto like '%$prod%'";
-        $result = mysqli_query($link, $query);
-        $arrayProduto = array();
-        while($produto = mysqli_fetch_row($result)) {
-            array_push($arrayProduto, $produto);
+        $query = "insert into telefones_cliente values ($tel, $id)";
+        if(mysqli_query($link, $query)) {
+            return true;
         }
-        return $arrayProduto;
+        return false;
     }
-    function buscarId($id) {
+
+    function removerTelefoneUser($id, $tel){
         $link = abreConexao();
-        $query = "select * from tb_produtos where id = $id";
-        $result = mysqli_query($link, $query);
-        if(mysqli_error($link)) {
-            $_SESSION['error'] = 'falha ao gravar';
+        $query = "DELETE FROM telefones_cliente WHERE Telefone = $tel AND Cliente_CPF = $id";
+        if(mysqli_query($link, $query)) {
+            return true;
         }
-        return mysqli_fetch_assoc($result);
+        return false;
     }
-    function atualizar($prod, $foto, $quant, $price, $custo, $desc, $rev, $id) {
+    ###FUNCIONARIO###
+    function selectFunc($id){
         $link = abreConexao();
-        $query = "update tb_produtos
-                    set produto = '$prod', foto = '$foto', quantidade = '$quant', preco = '$price', custo = '$custo', descricao = '$desc', review = '$rev'"
-                . " where id='$id'";
-                if(mysqli_query($link, $query)) {
-                    return true;
-                }
-                return false;
-    }
-    function efetuarLogin($login, $senha){
-        $link = abreConexao();
-        $query = "select nome from tb_admins where login = '$login' and senha = '$senha'";
+        $query = "select * from Funcionario where CPF = $id";
         $result = mysqli_query($link, $query);
-        $result = mysqli_fetch_assoc($result);
-        return $result;
-    }*/
+        $user = array();
+        while($row = mysqli_fetch_array($result)) {
+            array_push($user, $row);
+        }
+        return $user;
+    }
+
+    function selectTelsFromFunc($id){
+        $link = abreConexao();
+        $query = "select Telefone from telefones_funcionario where Funcionario_CPF = $id";
+        $result = mysqli_query($link, $query);
+        $telefones = array();
+        while($row = mysqli_fetch_array($result)) {
+            array_push($telefones, $row);
+        }
+        return $telefones;
+    }
+
+    function updateFunc($id, $nome, $end){
+        $link = abreConexao();
+        $query = "update Funcionario set Nome='$nome', Endereco='$end' where CPF = $id ";
+        if(mysqli_query($link, $query)) {
+            return true;
+        }
+        return false;
+    }
+
+    function cadastrarTelefoneFunc($id, $tel){
+        $link = abreConexao();
+        $query = "insert into telefones_funcionario values ($tel, $id)";
+        if(mysqli_query($link, $query)) {
+            return true;
+        }
+        return false;
+    }
+
+    function removerTelefoneFunc($id, $tel){
+        $link = abreConexao();
+        $query = "DELETE FROM telefones_funcionario WHERE Telefone = $tel AND Funcionario_CPF = $id";
+        if(mysqli_query($link, $query)) {
+            return true;
+        }
+        return false;
+    }
+
+    function brinquedosFuncionario($id){
+        $link = abreConexao();
+        $query = "select A.Brinquedos_Cod_brinquedo as Cod_brinquedo, B.nome as nome 
+                    from funcionario_brinquedos A, brinquedos B where 
+                    A.Funcionario_CPF=$id and A.Brinquedos_Cod_brinquedo = B.Cod_brinquedo";
+        $result = mysqli_query($link, $query);
+        $brinquedos = array();
+        while($row = mysqli_fetch_array($result)) {
+            array_push($brinquedos, $row);
+        }
+        return $brinquedos;
+    }
+
+    function cadastrarBrinquedoFunc($id, $cod){
+        $link = abreConexao();
+        $query = "insert into funcionario_brinquedos values ($id, $cod)";
+        if(mysqli_query($link, $query)) {
+            return true;
+        }
+        return false;
+    }
+
+    function removerBrinquedoFunc($id, $cod){
+        $link = abreConexao();
+        $query = "DELETE FROM funcionario_brinquedos WHERE Funcionario_CPF = $id AND Brinquedos_Cod_brinquedo = $cod";
+        if(mysqli_query($link, $query)) {
+            return true;
+        }
+        return false;
+    }    

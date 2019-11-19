@@ -3,6 +3,9 @@
     $Users = cobranca_usuarios();
     
     ?>
+    <div class="jumbotron text-center">
+    <h1>Gastos por cliente</h1>
+    </div>
         <table class="table">
         <thead>
             <tr>
