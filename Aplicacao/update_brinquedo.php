@@ -24,6 +24,7 @@ $brq = selectBrinquedo($_GET['cod']);
     <input type="number" class="form-control" id="Preco" name="Preco" value=<?="\"".$brq[0]["Preco"]."\""?>>
   </div>
   <button type="submit" class="btn btn-primary">Atualizar</button>
+  <a class="btn btn-primary" href=<?="remover_brinquedos.php?cod=".$brq[0]['Cod_brinquedo']?> role="button">Remover</a>
 </form>
 
 <?php

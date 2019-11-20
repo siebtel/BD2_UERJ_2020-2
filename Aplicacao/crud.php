@@ -161,6 +161,21 @@
         }
         return false;
     }
+
+    function removerCliente($id){
+        $link = abreConexao();
+        $query = "DELETE FROM cartao_cobranca_brinquedos WHERE Cartao_cobranca_Cliente_CPF = $id;
+                    DELETE FROM cartao_cobranca WHERE Cliente_CPF = $id;
+                    DELETE FROM telefones_cliente WHERE Cliente_CPF = $id;
+                    DELETE FROM cliente WHERE CPF = $id;";
+        //var_dump($query);
+        //die();
+        if(mysqli_multi_query($link, $query)) {
+            return true;
+        }
+        return false;
+
+    }
     ###FUNCIONARIO###
     function selectFunc($id){
         $link = abreConexao();
@@ -251,6 +266,18 @@
         return false;
     }
 
+    function removerFuncionario($id){
+        $link = abreConexao();
+        $query = "DELETE FROM Funcionario_brinquedos WHERE Funcionario_CPF = $id;
+                    DELETE FROM telefones_funcionario WHERE Funcionario_CPF = $id;
+                    DELETE FROM Funcionario WHERE CPF = $id;";
+        if(mysqli_multi_query($link, $query)) {
+            return true;
+        }
+        return false;
+
+    }
+
     ### Brinquedos ###
 
     function selectBrinquedo($id){
@@ -282,3 +309,15 @@
         }
         return false;
     }
+
+    function removerBrinquedo($id){
+        $link = abreConexao();
+        $query = "DELETE FROM Funcionario_brinquedos WHERE Brinquedos_Cod_brinquedo = $id;
+                    DELETE FROM Brinquedos WHERE Cod_brinquedo = $id;";
+        if(mysqli_multi_query($link, $query)) {
+            return true;
+        }
+        return false;
+
+    }
+

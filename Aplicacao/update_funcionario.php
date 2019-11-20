@@ -26,6 +26,7 @@ $brinquedos = brinquedosFuncionario($_GET['cpf']);
     <input type="text" class="form-control" id="endereco" name="Endereco" value=<?="\"".$user[0]["Endereco"]."\""?>>
   </div>
   <button type="submit" class="btn btn-primary">Atualizar</button>
+  <a class="btn btn-primary" href=<?="remover_funcionario.php?cpf=".$user[0]['CPF']?> role="button">Remover</a>
 </form>
 <table class="table" style="margin-top:50px;">
     <thead>
