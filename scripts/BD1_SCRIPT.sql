@@ -21,7 +21,7 @@ USE `BDI-db` ;
 -- Table `BDI-db`.`Cliente`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `BDI-db`.`Cliente` (
-  `CPF` INT NOT NULL,
+  `CPF` BIGINT NOT NULL,
   `Nome` VARCHAR(45) NOT NULL,
   `Endereco` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`CPF`),
@@ -44,7 +44,7 @@ ENGINE = InnoDB;
 -- Table `BDI-db`.`Funcionario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `BDI-db`.`Funcionario` (
-  `CPF` INT NOT NULL,
+  `CPF` BIGINT NOT NULL,
   `Nome` VARCHAR(45) NOT NULL,
   `Endereco` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`CPF`),
@@ -56,7 +56,7 @@ ENGINE = InnoDB;
 -- Table `BDI-db`.`Funcionario_Brinquedos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `BDI-db`.`Funcionario_Brinquedos` (
-  `Funcionario_CPF` INT NOT NULL,
+  `Funcionario_CPF` BIGINT NOT NULL,
   `Brinquedos_Cod_brinquedo` INT NOT NULL,
   PRIMARY KEY (`Funcionario_CPF`, `Brinquedos_Cod_brinquedo`),
   INDEX `fk_Funcionario_has_Brinquedos_Brinquedos1_idx` (`Brinquedos_Cod_brinquedo` ASC),
@@ -79,7 +79,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `BDI-db`.`Cartao_cobranca` (
   `Data` DATE NOT NULL,
-  `Cliente_CPF` INT NOT NULL,
+  `Cliente_CPF` BIGINT NOT NULL,
   PRIMARY KEY (`Data`, `Cliente_CPF`),
   INDEX `fk_Cartao_cobranca_Cliente1_idx` (`Cliente_CPF` ASC),
   CONSTRAINT `fk_Cartao_cobranca_Cliente1`
@@ -95,7 +95,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `BDI-db`.`Cartao_cobranca_brinquedos` (
   `Cartao_cobranca_Data` DATE NOT NULL,
-  `Cartao_cobranca_Cliente_CPF` INT NOT NULL,
+  `Cartao_cobranca_Cliente_CPF` BIGINT NOT NULL,
   `Brinquedos_Cod_brinquedo` INT NOT NULL,
   `Hora` TIME NOT NULL,
   PRIMARY KEY (`Cartao_cobranca_Data`, `Cartao_cobranca_Cliente_CPF`, `Brinquedos_Cod_brinquedo`, `Hora`),
@@ -119,7 +119,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `BDI-db`.`Telefones_funcionario` (
   `Telefone` INT NOT NULL,
-  `Funcionario_CPF` INT NOT NULL,
+  `Funcionario_CPF` BIGINT NOT NULL,
   PRIMARY KEY (`Telefone`, `Funcionario_CPF`),
   INDEX `fk_Telefones_funcionario_Funcionario1_idx` (`Funcionario_CPF` ASC),
   CONSTRAINT `fk_Telefones_funcionario_Funcionario1`
@@ -135,7 +135,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `BDI-db`.`Telefones_cliente` (
   `Telefone` INT NOT NULL,
-  `Cliente_CPF` INT NOT NULL,
+  `Cliente_CPF` BIGINT NOT NULL,
   PRIMARY KEY (`Telefone`, `Cliente_CPF`),
   INDEX `fk_Telefones-cliente_Cliente1_idx` (`Cliente_CPF` ASC),
   CONSTRAINT `fk_Telefones-cliente_Cliente1`

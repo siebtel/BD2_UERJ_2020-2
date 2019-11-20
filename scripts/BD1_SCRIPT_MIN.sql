@@ -1,4 +1,4 @@
-create database bd1;
+'create database bd1;
 
 use bd1;
 
@@ -42,7 +42,7 @@ CREATE TABLE Cartao_cobranca_brinquedos (
   Hora TIME NOT NULL,
   CONSTRAINT pk_Cartao_cobranca_brinquedos PRIMARY KEY (Cartao_cobranca_Data, Cartao_cobranca_Cliente_CPF, Brinquedos_Cod_brinquedo, Hora),
   CONSTRAINT fk_Cartao_cobranca_Data FOREIGN KEY (Cartao_cobranca_Data)  REFERENCES Cartao_cobranca(Data),
-  CONSTRAINT fk_Cartao_cobranca_Cliente_CPF FOREIGN KEY (Cartao_cobranca_Cliente_CPF) REFERENCES Cartao_cobranca(Cliente_CPF),
+  CONSTRAINT fk_Cartao_cobranca_Cliente_CPF FOREIGN KEY (Cartao_cobranca_Cliente_CPF) REFERENCES Cartao_cobranca(Cliente_CPF) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT fk_Brinquedos_Cod_brinquedo_cartao_cobranca FOREIGN KEY (Brinquedos_Cod_brinquedo) REFERENCES Brinquedos(Cod_brinquedo)
 );
 
