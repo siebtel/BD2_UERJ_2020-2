@@ -26,13 +26,16 @@
                             Listas
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="users.php">Usuários</a>
+                            <a class="dropdown-item" href="users.php">Clientes</a>
                             <a class="dropdown-item" href="cobranca_usuarios.php">Gastos</a>
+                            <a class="dropdown-item" href="users_form.php">Cadastro de clientes</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="brinquedos.php">Brinquedos</a>
+                            <a class="dropdown-item" href="brinquedos_form.php">Cadastro de brinquedos</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="funcionarios.php">Funcionarios</a>
                             <a class="dropdown-item" href="salarios.php">Salarios</a>
+                            <a class="dropdown-item" href="funcionarios_form.php">Cadastro de funcionarios</a>
                         </div>
                     </li>
                 </ul>

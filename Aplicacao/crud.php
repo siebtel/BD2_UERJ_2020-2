@@ -152,6 +152,15 @@
         }
         return false;
     }
+
+    function cadastrarUser($cpf, $nome, $end){
+        $link = abreConexao();
+        $query = "INSERT INTO Cliente VALUES($cpf, '$nome', '$end')";
+        if(mysqli_query($link, $query)) {
+            return true;
+        }
+        return false;
+    }
     ###FUNCIONARIO###
     function selectFunc($id){
         $link = abreConexao();
@@ -231,4 +240,45 @@
             return true;
         }
         return false;
-    }    
+    }
+
+    function cadastrarFuncionario($cpf, $nome, $end){
+        $link = abreConexao();
+        $query = "INSERT INTO Funcionario VALUES($cpf, '$nome', '$end')";
+        if(mysqli_query($link, $query)) {
+            return true;
+        }
+        return false;
+    }
+
+    ### Brinquedos ###
+
+    function selectBrinquedo($id){
+        $link = abreConexao();
+        $query = "select * from Brinquedos where Cod_brinquedo = $id";
+        $result = mysqli_query($link, $query);
+        $brq = array();
+        while($row = mysqli_fetch_array($result)) {
+            array_push($brq, $row);
+        }
+        return $brq;
+    }
+
+    function updateBrinquedo($id, $nome, $preco){
+        $link = abreConexao();
+        $query = "update Brinquedos set Nome='$nome', Preco=$preco where Cod_brinquedo = $id ";
+    
+        if(mysqli_query($link, $query)) {
+            return true;
+        }
+        return false;
+    }
+
+    function cadastrarBrinquedo($cod, $preco, $nome){
+        $link = abreConexao();
+        $query = "INSERT INTO Brinquedos VALUES($cod, $preco, '$nome')";
+        if(mysqli_query($link, $query)) {
+            return true;
+        }
+        return false;
+    }
