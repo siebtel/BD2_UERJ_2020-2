@@ -116,7 +116,95 @@ AS
 
 ## Funções
 
+### Função 1
 
+Criada para retornar uma string compatível com o tipo DATE dado um mês e um ano com o objetivo de realizar comparações entre datas
+
+```sql
+
+CREATE OR REPLACE FUNCTION first_day_of(integer, integer)
+RETURNS varchar as $$
+DECLARE str varchar;
+BEGIN
+    str := '-01';
+    case $1
+        when 1, 2, 3, 4, 5, 6, 7, 8, 9 THEN
+            str := $2||'-0'||$1||str;
+        WHEN 10, 11, 12 THEN
+            str := $2||'-'||$1||str;
+        WHEN 13 THEN
+            str := $2+1||'-01'||str;
+    end case;
+    return str;
+END
+$$ LANGUAGE plpgsql
+
+
+```
+
+### Função 2
+
+Criada para listar os funcionários em ordem de clientes atendidos, premiando aqueles com bom desempenho
+
+```sql
+CREATE OR REPLACE FUNCTION bonifica_funcionario(int, int)
+RETURNS VARCHAR AS $$
+DECLARE
+    cursor_freq CURSOR FOR
+        SELECT f.nome, sum(freq_table.freq) AS soma
+        FROM funcionario F, funcionario_brinquedos func_rel_brinq,  
+            (SELECT brinquedos_cod_brinquedo, count(cartao_cobranca_cliente_cpf) AS freq
+            FROM cartao_cobranca_brinquedos
+            WHERE cartao_cobranca_data >= to_date(first_day_of($1, $2), 'YYYY-MM-DD') AND
+            cartao_cobranca_data < to_date(first_day_of($1+1, $2), 'YYYY-MM-DD')
+            GROUP BY brinquedos_cod_brinquedo) AS freq_table
+        WHERE cpf = funcionario_cpf AND
+        freq_table.brinquedos_cod_brinquedo = func_rel_brinq.brinquedos_cod_brinquedo
+        GROUP BY f.nome
+        ORDER BY soma DESC, f.nome;
+    freq numeric;
+    media_freq numeric;
+    media numeric;
+    linhas numeric;
+    nome varchar;
+    str varchar;
+BEGIN
+    str := '';
+    linhas := 0;
+    media := 0;
+    OPEN cursor_freq;
+    LOOP
+        FETCH NEXT FROM cursor_freq
+        INTO nome, freq;
+        EXIT WHEN NOT FOUND;
+        linhas := linhas + 1;
+        media := media + freq;
+    END LOOP;
+    IF linhas > 0 THEN
+        media := media/linhas;
+    END IF;
+ 
+    FETCH FIRST FROM cursor_freq 
+    INTO nome, freq;
+    IF nome IS NOT NULL THEN
+        str := str||nome||' '||'funcionario_do_mes, '||freq;
+    END IF;
+    LOOP
+        FETCH NEXT FROM cursor_freq
+        INTO nome, freq;
+        EXIT WHEN NOT FOUND;
+        IF freq >= media THEN
+            str := str||nome||' '||'parabens, '||freq;
+        ELSE
+            str := str||nome||' '||'precisa melhorar, '||freq;
+        END IF;
+    END LOOP;
+    CLOSE cursor_freq;
+    RETURN str;
+END;
+$$ LANGUAGE plpgsql
+
+```
 
 ## Triggers (Gatilho)
 
