@@ -14,7 +14,7 @@ O tema abordado será o gerenciamento do cartão de visita de um visitante em um
 ## Minimundo
 
 O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Seus visitantes recebem na entrada um cartão digital que deve ser apresentado na entrada de cada brinquedo. Cada brinquedo possui um nome e código de identificação. Sendo a gerência do parque muito gananciosa, cada cartão de visitante deve registrar a cobrança de entrada nos brinquedos cada vez que for utilizado, ou seja, o visitante paga cada vez que for usar um brinquedo. Os funcionários deste parque também são muito ocupados, tendo muitas vezes que trabalhar em mais de um brinquedo, sendo que cada brinquedo pode precisar de um ou mais funcionários. Para estimular uma concorrência saudável entre seus funcionários, a gerência do parque paga um adicional de dois por cento do dinheiro arrecadado em cada brinquedo para cada funcionario responsável por ele. A fim de evitar fraudes, tanto os clientes quanto os funcionários devem ser registrados de acordo com o seu nome completo, CPF, endereço e telefone(s) para contato. Para disfarçar sua ganância o parque permite que cada cartão sejá válido por um dia inteiro. Ao final do dia o visitante deve pagar o valor acumulado de todos os brinquedos que visitou.
-</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+</br>
 ## Modelo conceitual
 
 ### Diagrama entidade-relacionamento
@@ -33,7 +33,7 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
     <li>Funcionário:<ul><li>CPF: Número inteiro de onze dígitos.</li><li>Nome: String de no máximo 45 caracteres.</li><li>Endereço: String de no máximo 100 caracteres.</li><li>Telefone: Numero inteiro formado por oito ou nove dígitos.</li>
 </ul></ul>
 
-</br></br></br></br></br>
+</br>
 ## Modelo Relacional
 
 ### Descrição
@@ -78,7 +78,45 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
 
 ## Visões
 
+### Visão 1
+
+Criada com o objetivo de dispor a tabela de preços dos brinquedos do parque, enquanto suprime do usuário o código do brinquedo.
+
+```sql
+CREATE OR REPLACE VIEW preco_brinquedo
+AS
+    SELECT Nome, Preco
+    FROM Brinquedos
+    ORDER BY Nome;
+```
+
+### Visão 2
+
+Lista meios de contato com os funcionários do parque, suprimindo informações pessoais como o CPF.
+
+```sql
+CREATE OR REPLACE VIEW contatos_funcionario
+AS 
+    SELECT nome, endereco, telefone
+    FROM funcionario INNER JOIN Telefones_funcionario
+    ON cpf = Funcionario_CPF;
+```
+
+### Visão 3
+
+Lista funcionários e seus respectivos brinquedos, ocultando informações relevantes apenas ao banco de dados (CPF e Código do Brinquedo)
+
+```sql
+CREATE OR REPLACE VIEW funcionarios_brinquedo
+AS 
+    SELECT b.nome AS nome_do_brinquedo, f.nome AS nome_funcionario
+    FROM funcionario f, funcionario_brinquedos, brinquedos b
+    WHERE cpf = Funcionario_CPF AND cod_brinquedos = brinquedos_cod_brinquedo;
+```
+
 ## Funções
+
+
 
 ## Triggers (Gatilho)
 
