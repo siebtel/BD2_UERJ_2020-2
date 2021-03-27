@@ -208,7 +208,54 @@ $$ LANGUAGE plpgsql
 
 ## Triggers (Gatilho)
 
+### Trigger 1
+
+```sql
+CREATE OR REPLACE FUNCTION fc_registra_entrada_funcionario()
+RETURNS trigger AS $$
+DECLARE
+    data_atual date;
+BEGIN
+    SELECT CURRENT_DATE INTO data_atual;
+    INSERT INTO registro_funcionario
+    VALUES (new.cpf, data_atual, new.nome, null);
+    RETURN null;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER registra_entrada_funcionario AFTER INSERT
+ON funcionario
+FOR EACH ROW EXECUTE PROCEDURE fc_registra_entrada_funcionario();
+
+```
+
+### Trigger 2
+
+```sql
+CREATE OR REPLACE FUNCTION fc_registra_saida_funcionario()
+RETURNS trigger AS $$
+DECLARE
+    data_atual date;
+BEGIN
+    SELECT CURRENT_DATE INTO data_atual;
+    UPDATE registro_funcionario set data_de_saida = data_atual
+    WHERE old.cpf = cpf AND
+    data_de_saida IS NULL;
+    RETURN new;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER atualiza_saida_funcionario AFTER DELETE
+ON funcionario
+FOR EACH ROW EXECUTE PROCEDURE fc_registra_saida_funcionario();
+
+```
+
 ## Índice
+
+```sql
+CREATE INDEX indNome ON cliente using hash(nome);
+```
 
 ### Exemplo
 
