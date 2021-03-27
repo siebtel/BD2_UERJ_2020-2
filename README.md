@@ -1,4 +1,4 @@
-# Trabalho da disciplina banco de dados I - UERJ 2020/2
+# Trabalho da disciplina banco de dados II - UERJ 2020/2
 
 ## Integrantes
 
@@ -31,7 +31,7 @@ O parque de diversões 'tomorrowland' é um parque moderno mas muito ganancioso.
     <li>Brinquedo:<ul><li>Cod_brinquedo: Numero inteiro de cinco dígitos.</li><li>Nome: String de no máximo 45 caracteres.</li><li>Preço: Número real positivo com duas casas decimais de precisão.</li></ul></li>
     <li>Registra (Cartão-Brinquedo):<ul><li> Hora: registro de hora no formato hh-mm-ss de acordo com o tipo TIME da linguagem mySQL.</li></ul></li>
     <li>Funcionário:<ul><li>CPF: Número inteiro de onze dígitos.</li><li>Nome: String de no máximo 45 caracteres.</li><li>Endereço: String de no máximo 100 caracteres.</li><li>Telefone: Numero inteiro formado por oito ou nove dígitos.</li></ul></li>
-    <li>registro_funcionario:<ul><li>CPF: número inteiro de onze dígitos</li><li>Nome: String de no máximo 45 caracteres.</li><li>data_de_entrada: Data no formato aaaa-mm-dd de acordo com o tipo DATE da linguagem mySQL.</li><li>data_de_saida: Data no formato aaaa-mm-dd de acordo com o tipo DATE da linguagem mySQL.</li>
+    <li>Registro do funcionario:<ul><li>CPF: número inteiro de onze dígitos</li><li>Nome: String de no máximo 45 caracteres.</li><li>data_de_entrada: Data no formato aaaa-mm-dd de acordo com o tipo DATE da linguagem mySQL.</li><li>data_de_saida: Data no formato aaaa-mm-dd de acordo com o tipo DATE da linguagem mySQL.</li>
 </ul></ul>
 
 </br>
@@ -51,6 +51,7 @@ O parque de diversões 'tomorrowland' é um parque moderno mas muito ganancioso.
 * Funcionario (**CPF**, Nome, Endereço)
 * Telefones_funcionario (**Telefone**, **_Funcionario_CPF_**)
 * Funcionario_brinquedo (_**Funcionario_CPF**_, _**Brinquedo_Cod_brinquedo**_)
+* Registro_funcionario: (**CPF**, Nome, **data_entrada**, data_saida)
   
 <p>
     Sabendo-se que cada Cliente possui nenhum ou vários cartões, mas que cada cartão está vinculado a obrigatoriamente um e apenas um cliente, foi adicionada uma coluna extra na tabela cartão para referenciar o cliente ao qual ele está asssociado
