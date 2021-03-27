@@ -34,6 +34,7 @@ O parque de diversões 'SmashLand' é um parque moderno mas muito ganancioso. Se
 </ul></ul>
 
 </br>
+
 ## Modelo Relacional
 
 ### Descrição
