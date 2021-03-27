@@ -145,7 +145,7 @@ $$ LANGUAGE plpgsql
 
 ### Função 2
 
-Criada para listar os funcionários em ordem de clientes atendidos, premiando aqueles com bom desempenho
+Criada para listar os funcionários em ordem de clientes atendidos, premiando o melhor com o título "Funcionário do Mês" e parabenizando aqueles que superaram a média de atendimentos.
 
 ```sql
 CREATE OR REPLACE FUNCTION bonifica_funcionario(int, int)
@@ -209,6 +209,8 @@ $$ LANGUAGE plpgsql
 
 ## Triggers (Gatilho)
 
+A primeira trigger desenvolvida insere na tabela registro_funcionario o registro de entrada de um novo funcionário, enquanto a segunda trigger registra data de saida de um funcionário na deleção do mesmo do quadro de funcionários atual.
+
 ### Trigger 1
 
 ```sql
@@ -258,6 +260,18 @@ FOR EACH ROW EXECUTE PROCEDURE fc_registra_saida_funcionario();
 CREATE INDEX indNome ON cliente using hash(nome);
 ```
 
+O comando acima cria uma tabela hash para o campo nome na tabela cliente, sendo assim quando ocorre uma busca por um nome específico na tabela o sistema restringe a busca ao provável endereço dessa linha, não precisando iterar sobre toda a tabela como normalmente seria feito.
+
 ### Exemplo
+
+Nem sempre a busca pelo registro do cliente será feita pelo cpf do mesmo, muitas vezes temos disponível apenas o nome, a indexacão da coluna nome melhora o desempenho deste tipo de consulta, como demonstrado nas imagens a seguir.
+
+### Consulta não indexada
+
+<img src="teste_consulta_nao_indexada.png"></img>
+
+### Consulta indexada
+
+<img src="teste_consulta_indexada.png"></img>
 
 
